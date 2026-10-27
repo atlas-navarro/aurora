@@ -72,7 +72,8 @@ class AppContainer(context: Context) {
 
     val localLibrary = LocalLibrary(appContext, gainProvider = { path -> replayGainStore.gainsFor(path) },
         separatorsProvider = { settingsStore.artistSeparators.first() },
-        trackCoversProvider = { settingsStore.trackCovers.first() })
+        trackCoversProvider = { settingsStore.trackCovers.first() },
+        foldersProvider = { settingsStore.localFolders.first() to settingsStore.localExcludedFolders.first() })
     private val localStore = LocalStore(appContext.filesDir)
     private val localIndexRequested = java.util.concurrent.atomic.AtomicBoolean(false)
 
@@ -548,6 +549,11 @@ class AppContainer(context: Context) {
         }
         scope.launch {
             settingsStore.sourcePriority.collect { sourcePriorityValue = it }
+        }
+        scope.launch {
+            kotlinx.coroutines.flow.combine(settingsStore.localFolders, settingsStore.localExcludedFolders, ::Pair).drop(1).collect {
+                if (localLibrary.inUse && runCatching { localLibrary.refresh() }.getOrDefault(false)) _libraryReload.value++
+            }
         }
         scope.launch {
             settingsStore.catalogueMatch.collect { catalogueMatchValue = it }

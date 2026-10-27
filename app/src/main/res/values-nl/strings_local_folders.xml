@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Muziekmappen"</string>
+    <string name="local_folders_whole">"Hele apparaat"</string>
+    <string name="local_folders_whole_summary">"Alle muziekbestanden op dit apparaat"</string>
+    <string name="local_folders_chosen">"Alleen gekozen mappen"</string>
+    <string name="local_folders_chosen_summary">"Alleen muziek uit de mappen die je kiest"</string>
+    <string name="local_folders_add">"Map toevoegen"</string>
+    <string name="local_folders_exclude">"Map uitsluiten"</string>
+    <string name="local_folders_exclude_summary">"Uitgesloten mappen worden in beide modi overgeslagen. Nummers die Aurora in Music/Aurora opslaat blijven, tenzij je die map zelf uitsluit."</string>
+    <string name="local_folders_unsupported">"Kies een map in de opslag van dit apparaat of op de SD-kaart."</string>
+</resources>

@@ -153,6 +153,8 @@ internal object SettingsKeys {
     val CATALOGUE_MATCH_RELAXED = booleanPreferencesKey("catalogue_match_relaxed")
     val CATALOGUE_LOSSLESS_ONLY = booleanPreferencesKey("catalogue_lossless_only")
     val UNIFIED_LIBRARY = booleanPreferencesKey("unified_library")
+    val LOCAL_FOLDERS = stringSetPreferencesKey("local_folders")
+    val LOCAL_EXCLUDED_FOLDERS = stringSetPreferencesKey("local_excluded_folders")
     val MERGE_SOURCES = stringSetPreferencesKey("merge_sources")
     val MERGE_CANVAS = booleanPreferencesKey("merge_canvas")
     val MERGE_CANVAS_OFF = stringSetPreferencesKey("merge_canvas_off")

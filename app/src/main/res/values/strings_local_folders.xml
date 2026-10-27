@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Music Folders"</string>
+    <string name="local_folders_whole">"Whole Device"</string>
+    <string name="local_folders_whole_summary">"Every music file on this device"</string>
+    <string name="local_folders_chosen">"Only Chosen Folders"</string>
+    <string name="local_folders_chosen_summary">"Only music inside the folders you pick"</string>
+    <string name="local_folders_add">"Add Folder"</string>
+    <string name="local_folders_exclude">"Exclude a Folder"</string>
+    <string name="local_folders_exclude_summary">"Excluded folders are skipped in both modes. Songs Aurora saves to Music/Aurora stay unless you exclude that folder itself."</string>
+    <string name="local_folders_unsupported">"Pick a folder on this device's storage or SD card."</string>
+</resources>

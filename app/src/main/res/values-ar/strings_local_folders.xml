@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"مجلدات الموسيقى"</string>
+    <string name="local_folders_whole">"الجهاز بالكامل"</string>
+    <string name="local_folders_whole_summary">"كل ملفات الموسيقى على هذا الجهاز"</string>
+    <string name="local_folders_chosen">"المجلدات المختارة فقط"</string>
+    <string name="local_folders_chosen_summary">"الموسيقى الموجودة في المجلدات التي تختارها فقط"</string>
+    <string name="local_folders_add">"إضافة مجلد"</string>
+    <string name="local_folders_exclude">"استبعاد مجلد"</string>
+    <string name="local_folders_exclude_summary">"تُتخطّى المجلدات المستبعدة في الوضعين. تبقى الأغاني التي يحفظها Aurora في Music/Aurora ما لم تستبعد هذا المجلد نفسه."</string>
+    <string name="local_folders_unsupported">"اختر مجلدًا في مساحة تخزين الجهاز أو بطاقة SD."</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Folder musik"</string>
+    <string name="local_folders_whole">"Seluruh perangkat"</string>
+    <string name="local_folders_whole_summary">"Semua file musik di perangkat ini"</string>
+    <string name="local_folders_chosen">"Hanya folder pilihan"</string>
+    <string name="local_folders_chosen_summary">"Hanya musik di dalam folder yang kamu pilih"</string>
+    <string name="local_folders_add">"Tambah folder"</string>
+    <string name="local_folders_exclude">"Kecualikan folder"</string>
+    <string name="local_folders_exclude_summary">"Folder yang dikecualikan dilewati di kedua mode. Lagu yang disimpan Aurora di Music/Aurora tetap ada kecuali kamu mengecualikan folder itu sendiri."</string>
+    <string name="local_folders_unsupported">"Pilih folder di penyimpanan perangkat atau kartu SD."</string>
+</resources>

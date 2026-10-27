@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Carpetas de música"</string>
+    <string name="local_folders_whole">"Todo el dispositivo"</string>
+    <string name="local_folders_whole_summary">"Todos los archivos de música de este dispositivo"</string>
+    <string name="local_folders_chosen">"Solo carpetas elegidas"</string>
+    <string name="local_folders_chosen_summary">"Solo la música de las carpetas que elijas"</string>
+    <string name="local_folders_add">"Añadir carpeta"</string>
+    <string name="local_folders_exclude">"Excluir una carpeta"</string>
+    <string name="local_folders_exclude_summary">"Las carpetas excluidas se omiten en ambos modos. Las canciones que Aurora guarda en Music/Aurora se mantienen salvo que excluyas esa carpeta."</string>
+    <string name="local_folders_unsupported">"Elige una carpeta del almacenamiento del dispositivo o de la tarjeta SD."</string>
+</resources>

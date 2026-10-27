@@ -1171,6 +1171,12 @@ class SettingsStore(private val dataStore: DataStore<Preferences>, private val f
     val unifiedLibrary: Flow<Boolean> = dataStore.data.map { it[Keys.UNIFIED_LIBRARY] ?: false }.distinctUntilChanged()
     suspend fun setUnifiedLibrary(v: Boolean) = dataStore.edit { it[Keys.UNIFIED_LIBRARY] = v }
 
+    // empty = the whole device
+    val localFolders: Flow<Set<String>> = dataStore.data.map { it[Keys.LOCAL_FOLDERS] ?: emptySet() }.distinctUntilChanged()
+    suspend fun setLocalFolders(paths: Set<String>) = dataStore.edit { it[Keys.LOCAL_FOLDERS] = paths }
+    val localExcludedFolders: Flow<Set<String>> = dataStore.data.map { it[Keys.LOCAL_EXCLUDED_FOLDERS] ?: emptySet() }.distinctUntilChanged()
+    suspend fun setLocalExcludedFolders(paths: Set<String>) = dataStore.edit { it[Keys.LOCAL_EXCLUDED_FOLDERS] = paths }
+
     // empty = every eligible saved source
     val mergeSources: Flow<Set<String>> = dataStore.data.map { it[Keys.MERGE_SOURCES] ?: emptySet() }.distinctUntilChanged()
     suspend fun setMergeSources(keys: Set<String>) = dataStore.edit { it[Keys.MERGE_SOURCES] = keys }

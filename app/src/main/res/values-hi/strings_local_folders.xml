@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"संगीत फ़ोल्डर"</string>
+    <string name="local_folders_whole">"पूरा डिवाइस"</string>
+    <string name="local_folders_whole_summary">"इस डिवाइस की सभी संगीत फ़ाइलें"</string>
+    <string name="local_folders_chosen">"केवल चुने गए फ़ोल्डर"</string>
+    <string name="local_folders_chosen_summary">"केवल आपके चुने फ़ोल्डरों का संगीत"</string>
+    <string name="local_folders_add">"फ़ोल्डर जोड़ें"</string>
+    <string name="local_folders_exclude">"फ़ोल्डर बाहर रखें"</string>
+    <string name="local_folders_exclude_summary">"बाहर रखे गए फ़ोल्डर दोनों मोड में छोड़ दिए जाते हैं। Aurora जो गाने Music/Aurora में सहेजता है, वे तब तक रहते हैं जब तक आप उसी फ़ोल्डर को बाहर न रखें।"</string>
+    <string name="local_folders_unsupported">"डिवाइस स्टोरेज या SD कार्ड पर कोई फ़ोल्डर चुनें।"</string>
+</resources>

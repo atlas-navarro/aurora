@@ -64,22 +64,25 @@ class CueLibrary(private val context: Context) {
 
     private fun saved() = prefs.getStringSet(KEY, emptySet()).orEmpty().toSet()
 
-    private companion object {
-        val lock = Any()
-        const val KEY = "trees"
-        const val STORAGE = "com.android.externalstorage.documents"
-        const val MAX_BYTES = 1L shl 20
+    companion object {
+        private val lock = Any()
+        private const val KEY = "trees"
+        private const val STORAGE = "com.android.externalstorage.documents"
+        private const val MAX_BYTES = 1L shl 20
         @Suppress("DEPRECATION")
-        val primary: String get() = Environment.getExternalStorageDirectory().absolutePath
+        private val primary: String get() = Environment.getExternalStorageDirectory().absolutePath
+
+        fun treePath(tree: Uri): String? =
+            if (tree.authority != STORAGE) null else runCatching { pathOf(DocumentsContract.getTreeDocumentId(tree)) }.getOrNull()
 
         // external storage documents are "<volume>:<relative path>"
-        fun pathOf(documentId: String): String? {
+        private fun pathOf(documentId: String): String? {
             val volume = documentId.substringBefore(':', "").ifBlank { return null }
             val root = if (volume == "primary") primary else "/storage/$volume"
             return (root + "/" + documentId.substringAfter(':')).trimEnd('/')
         }
 
-        fun documentIdOf(path: String): String? = when {
+        private fun documentIdOf(path: String): String? = when {
             path == primary || path.startsWith("$primary/") -> "primary:" + path.removePrefix(primary).trimStart('/')
             path.startsWith("/storage/") -> path.removePrefix("/storage/").let { it.substringBefore('/') + ":" + it.substringAfter('/', "") }
             else -> null

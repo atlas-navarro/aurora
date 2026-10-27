@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"音乐文件夹"</string>
+    <string name="local_folders_whole">"整个设备"</string>
+    <string name="local_folders_whole_summary">"此设备上的所有音乐文件"</string>
+    <string name="local_folders_chosen">"仅所选文件夹"</string>
+    <string name="local_folders_chosen_summary">"仅包含你所选文件夹中的音乐"</string>
+    <string name="local_folders_add">"添加文件夹"</string>
+    <string name="local_folders_exclude">"排除文件夹"</string>
+    <string name="local_folders_exclude_summary">"两种模式都会跳过已排除的文件夹。Aurora 保存到 Music/Aurora 的歌曲会保留，除非你排除该文件夹本身。"</string>
+    <string name="local_folders_unsupported">"请选择设备存储或 SD 卡上的文件夹。"</string>
+</resources>

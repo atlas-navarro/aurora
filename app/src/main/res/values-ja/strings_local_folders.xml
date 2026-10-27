@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"音楽フォルダ"</string>
+    <string name="local_folders_whole">"デバイス全体"</string>
+    <string name="local_folders_whole_summary">"このデバイス上のすべての音楽ファイル"</string>
+    <string name="local_folders_chosen">"選んだフォルダのみ"</string>
+    <string name="local_folders_chosen_summary">"選んだフォルダ内の音楽のみ"</string>
+    <string name="local_folders_add">"フォルダを追加"</string>
+    <string name="local_folders_exclude">"フォルダを除外"</string>
+    <string name="local_folders_exclude_summary">"除外したフォルダはどちらのモードでもスキップされます。AuroraがMusic/Auroraに保存した曲は、そのフォルダ自体を除外しない限り残ります。"</string>
+    <string name="local_folders_unsupported">"デバイスのストレージまたはSDカード上のフォルダを選んでください。"</string>
+</resources>

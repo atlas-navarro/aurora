@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Pastas de música"</string>
+    <string name="local_folders_whole">"Dispositivo inteiro"</string>
+    <string name="local_folders_whole_summary">"Todos os arquivos de música deste dispositivo"</string>
+    <string name="local_folders_chosen">"Somente pastas escolhidas"</string>
+    <string name="local_folders_chosen_summary">"Somente as músicas das pastas que você escolher"</string>
+    <string name="local_folders_add">"Adicionar pasta"</string>
+    <string name="local_folders_exclude">"Excluir uma pasta"</string>
+    <string name="local_folders_exclude_summary">"Pastas excluídas são ignoradas nos dois modos. As músicas que o Aurora salva em Music/Aurora continuam, a menos que você exclua essa pasta."</string>
+    <string name="local_folders_unsupported">"Escolha uma pasta no armazenamento do dispositivo ou no cartão SD."</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Dossiers de musique"</string>
+    <string name="local_folders_whole">"Tout l’appareil"</string>
+    <string name="local_folders_whole_summary">"Tous les fichiers musicaux de cet appareil"</string>
+    <string name="local_folders_chosen">"Dossiers choisis uniquement"</string>
+    <string name="local_folders_chosen_summary">"Seulement la musique des dossiers que vous choisissez"</string>
+    <string name="local_folders_add">"Ajouter un dossier"</string>
+    <string name="local_folders_exclude">"Exclure un dossier"</string>
+    <string name="local_folders_exclude_summary">"Les dossiers exclus sont ignorés dans les deux modes. Les titres qu’Aurora enregistre dans Music/Aurora restent, sauf si vous excluez ce dossier lui-même."</string>
+    <string name="local_folders_unsupported">"Choisissez un dossier dans le stockage de l’appareil ou sur la carte SD."</string>
+</resources>

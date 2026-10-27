@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"موسیقی کے فولڈر"</string>
+    <string name="local_folders_whole">"پورا آلہ"</string>
+    <string name="local_folders_whole_summary">"اس آلے پر موجود تمام موسیقی فائلیں"</string>
+    <string name="local_folders_chosen">"صرف منتخب فولڈر"</string>
+    <string name="local_folders_chosen_summary">"صرف آپ کے منتخب کردہ فولڈرز کی موسیقی"</string>
+    <string name="local_folders_add">"فولڈر شامل کریں"</string>
+    <string name="local_folders_exclude">"فولڈر خارج کریں"</string>
+    <string name="local_folders_exclude_summary">"خارج کیے گئے فولڈر دونوں موڈز میں چھوڑ دیے جاتے ہیں۔ Aurora جو گانے Music/Aurora میں محفوظ کرتا ہے وہ برقرار رہتے ہیں جب تک آپ اسی فولڈر کو خارج نہ کریں۔"</string>
+    <string name="local_folders_unsupported">"آلے کی اسٹوریج یا SD کارڈ پر کوئی فولڈر منتخب کریں۔"</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Musikordner"</string>
+    <string name="local_folders_whole">"Ganzes Gerät"</string>
+    <string name="local_folders_whole_summary">"Alle Musikdateien auf diesem Gerät"</string>
+    <string name="local_folders_chosen">"Nur ausgewählte Ordner"</string>
+    <string name="local_folders_chosen_summary">"Nur Musik aus den Ordnern, die du auswählst"</string>
+    <string name="local_folders_add">"Ordner hinzufügen"</string>
+    <string name="local_folders_exclude">"Ordner ausschließen"</string>
+    <string name="local_folders_exclude_summary">"Ausgeschlossene Ordner werden in beiden Modi übersprungen. Songs, die Aurora in Music/Aurora speichert, bleiben, außer du schließt genau diesen Ordner aus."</string>
+    <string name="local_folders_unsupported">"Wähle einen Ordner im Gerätespeicher oder auf der SD-Karte."</string>
+</resources>

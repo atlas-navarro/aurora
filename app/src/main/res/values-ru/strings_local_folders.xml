@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Папки с музыкой"</string>
+    <string name="local_folders_whole">"Всё устройство"</string>
+    <string name="local_folders_whole_summary">"Вся музыка на этом устройстве"</string>
+    <string name="local_folders_chosen">"Только выбранные папки"</string>
+    <string name="local_folders_chosen_summary">"Только музыка из выбранных вами папок"</string>
+    <string name="local_folders_add">"Добавить папку"</string>
+    <string name="local_folders_exclude">"Исключить папку"</string>
+    <string name="local_folders_exclude_summary">"Исключённые папки пропускаются в обоих режимах. Песни, которые Aurora сохраняет в Music/Aurora, остаются, если не исключить саму эту папку."</string>
+    <string name="local_folders_unsupported">"Выберите папку во внутренней памяти или на SD-карте."</string>
+</resources>

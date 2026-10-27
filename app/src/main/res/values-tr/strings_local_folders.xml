@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Müzik klasörleri"</string>
+    <string name="local_folders_whole">"Tüm cihaz"</string>
+    <string name="local_folders_whole_summary">"Bu cihazdaki tüm müzik dosyaları"</string>
+    <string name="local_folders_chosen">"Yalnızca seçilen klasörler"</string>
+    <string name="local_folders_chosen_summary">"Yalnızca seçtiğin klasörlerdeki müzikler"</string>
+    <string name="local_folders_add">"Klasör ekle"</string>
+    <string name="local_folders_exclude">"Klasör hariç tut"</string>
+    <string name="local_folders_exclude_summary">"Hariç tutulan klasörler iki modda da atlanır. Aurora'nın Music/Aurora klasörüne kaydettiği şarkılar, o klasörü hariç tutmadıkça kalır."</string>
+    <string name="local_folders_unsupported">"Cihaz depolamasında veya SD kartta bir klasör seç."</string>
+</resources>

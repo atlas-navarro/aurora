@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"음악 폴더"</string>
+    <string name="local_folders_whole">"기기 전체"</string>
+    <string name="local_folders_whole_summary">"이 기기의 모든 음악 파일"</string>
+    <string name="local_folders_chosen">"선택한 폴더만"</string>
+    <string name="local_folders_chosen_summary">"선택한 폴더 안의 음악만"</string>
+    <string name="local_folders_add">"폴더 추가"</string>
+    <string name="local_folders_exclude">"폴더 제외"</string>
+    <string name="local_folders_exclude_summary">"제외한 폴더는 두 모드 모두에서 건너뜁니다. Aurora가 Music/Aurora에 저장한 곡은 그 폴더 자체를 제외하지 않는 한 유지됩니다."</string>
+    <string name="local_folders_unsupported">"기기 저장공간이나 SD 카드의 폴더를 선택하세요."</string>
+</resources>

@@ -41,6 +41,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.RadioButton
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.selection.selectableGroup
+import androidx.compose.ui.semantics.Role
 import com.aurora.music.data.SacdLibrary
 import com.aurora.music.data.SacdLibraryEntry
 import com.aurora.music.data.CueLibrary
@@ -148,6 +152,19 @@ fun SourcesSettingsScreen(contentPadding: PaddingValues, onBack: () -> Unit, onA
         if (granted) rescan() else rescanStatus = appString(R.string.rescan_permission)
     }
 
+    val chosenFolders by store.localFolders.collectAsStateWithLifecycle(initialValue = emptySet())
+    val excludedFolders by store.localExcludedFolders.collectAsStateWithLifecycle(initialValue = emptySet())
+    var folderStatus by remember { mutableStateOf<String?>(null) }
+    fun folderPicker(save: suspend (String) -> Unit) = { uri: android.net.Uri? ->
+        val path = uri?.let(CueLibrary::treePath)
+        folderStatus = if (uri != null && path == null) appString(R.string.local_folders_unsupported) else null
+        if (path != null) scope.launch { save(path) }
+    }
+    val pickFolder = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree(),
+        folderPicker { store.setLocalFolders(chosenFolders + it) })
+    val pickExcluded = rememberLauncherForActivityResult(ActivityResultContracts.OpenDocumentTree(),
+        folderPicker { store.setLocalExcludedFolders(excludedFolders + it) })
+
     val preferLocal by store.preferLocalSources.collectAsStateWithLifecycle(initialValue = true)
     val priority by store.sourcePriority.collectAsStateWithLifecycle(initialValue = DEFAULT_SOURCE_PRIORITY)
     val unified by store.unifiedLibrary.collectAsStateWithLifecycle(initialValue = false)
@@ -218,6 +235,32 @@ fun SourcesSettingsScreen(contentPadding: PaddingValues, onBack: () -> Unit, onA
                     TextButton(enabled = !cueBusy, onClick = { changeCueFolders({ cue.remove(folder.uri) }, R.string.cue_folder_remove_failed) }) {
                         Text(appString(R.string.text_remove_e96390))
                     }
+                }
+            }
+
+            item { SettingsSectionTitle(appString(R.string.local_folders_title)) }
+            item {
+                SettingsGroup {
+                    Column(Modifier.selectableGroup()) {
+                        ScopeRow(appString(R.string.local_folders_whole), appString(R.string.local_folders_whole_summary), chosenFolders.isEmpty()) {
+                            scope.launch { store.setLocalFolders(emptySet()) }
+                        }
+                        ScopeRow(appString(R.string.local_folders_chosen), appString(R.string.local_folders_chosen_summary), chosenFolders.isNotEmpty()) {
+                            if (chosenFolders.isEmpty()) pickFolder.launch(null)
+                        }
+                    }
+                    chosenFolders.sorted().forEach { path -> FolderRow(path) { scope.launch { store.setLocalFolders(chosenFolders - path) } } }
+                    if (chosenFolders.isNotEmpty()) TextButton(onClick = { pickFolder.launch(null) }, modifier = Modifier.padding(horizontal = 12.dp)) {
+                        Text(appString(R.string.local_folders_add))
+                    }
+                    SettingsRowDivider()
+                    TextButton(onClick = { pickExcluded.launch(null) }, modifier = Modifier.padding(horizontal = 12.dp)) {
+                        Text(appString(R.string.local_folders_exclude))
+                    }
+                    excludedFolders.sorted().forEach { path -> FolderRow(path) { scope.launch { store.setLocalExcludedFolders(excludedFolders - path) } } }
+                    Text(folderStatus ?: appString(R.string.local_folders_exclude_summary), style = MaterialTheme.typography.bodySmall,
+                        color = if (folderStatus != null) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 16.dp))
                 }
             }
 
@@ -369,5 +412,25 @@ private fun SourceRow(title: String, subtitle: String, included: Boolean, toggle
             Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant, maxLines = 1)
         }
         Switch(checked = included, enabled = toggleable, onCheckedChange = { onToggle() })
+    }
+}
+
+@Composable
+private fun ScopeRow(title: String, subtitle: String, selected: Boolean, onClick: () -> Unit) {
+    Row(Modifier.fillMaxWidth().selectable(selected = selected, role = Role.RadioButton, onClick = onClick).padding(horizontal = 20.dp, vertical = 14.dp),
+        verticalAlignment = Alignment.CenterVertically) {
+        Column(Modifier.weight(1f)) {
+            Text(title, style = MaterialTheme.typography.titleSmall)
+            Text(subtitle, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        }
+        RadioButton(selected = selected, onClick = null)
+    }
+}
+
+@Composable
+private fun FolderRow(path: String, onRemove: () -> Unit) {
+    Row(Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 2.dp), verticalAlignment = Alignment.CenterVertically) {
+        Text(path, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.weight(1f))
+        TextButton(onClick = onRemove) { Text(appString(R.string.text_remove_e96390)) }
     }
 }

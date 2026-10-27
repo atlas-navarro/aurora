@@ -36,6 +36,8 @@ class LocalLibrary(
     private val gainProvider: (String) -> Pair<Float, Float>? = { null },
     private val separatorsProvider: suspend () -> ArtistSeparators = { ArtistSeparators() },
     private val trackCoversProvider: suspend () -> Boolean = { false },
+    // chosen folders (empty = whole device) and excluded folders
+    private val foldersProvider: suspend () -> Pair<Set<String>, Set<String>> = { emptySet<String>() to emptySet() },
 ) : LocalCatalog {
 
     @Volatile private var loaded = false
@@ -85,10 +87,11 @@ class LocalLibrary(
     suspend fun rescan(full: Boolean = false, folder: String? = null): LocalRescanResult {
         ensureLoaded()
         val before = songKeys()
+        val chosen = foldersProvider().first
         val targets = when {
             folder != null -> listOf(folder)
-            full -> volumeRoots()
-            else -> LocalRescan.roots(standardFolders() + dirOf.values)
+            full -> LocalRescan.roots(chosen).ifEmpty { volumeRoots() }
+            else -> LocalRescan.roots(standardFolders() + chosen + dirOf.values)
         }
         requestMediaScan(targets, if (full) FULL_SCAN_TIMEOUT_MS else SCAN_TIMEOUT_MS)
         refresh()
@@ -129,6 +132,11 @@ class LocalLibrary(
 
     private fun volumeRoots(): List<String> = context.getExternalFilesDirs(null).filterNotNull()
         .map { it.absolutePath.substringBefore("/Android/data/") }.distinct()
+
+    // songs aurora saved itself stay unless that folder is excluded
+    @Suppress("DEPRECATION")
+    private fun auroraFolder(): String =
+        File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC), YouTubeDownloader.FOLDER).absolutePath
 
     @Suppress("DEPRECATION")
     private fun standardFolders(): List<String> = listOf(Environment.DIRECTORY_MUSIC, Environment.DIRECTORY_DOWNLOADS)
@@ -206,6 +214,9 @@ class LocalLibrary(
     @androidx.annotation.OptIn(UnstableApi::class)
     private suspend fun scan(separators: ArtistSeparators, trackCovers: Boolean) = withContext(Dispatchers.IO) {
         val signature = mediaSignature()
+        val (folders, excluded) = foldersProvider()
+        val kept = listOf(auroraFolder())
+        val keep = { path: String -> LocalRescan.inScope(path, folders, excluded, kept) }
         val collection = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         val cols = arrayListOf(
             MediaStore.Audio.Media._ID,
@@ -261,6 +272,8 @@ class LocalLibrary(
                 val discCol = if (Build.VERSION.SDK_INT >= 30) c.getColumnIndex(MediaStore.Audio.Media.DISC_NUMBER) else -1
                 @Suppress("DEPRECATION") val dataCol = c.getColumnIndex(MediaStore.Audio.Media.DATA)
                 while (c.moveToNext()) {
+                    val data = if (dataCol >= 0) c.getString(dataCol).orEmpty() else ""
+                    if (!keep(data)) continue
                     val id = c.getLong(idCol)
                     val albumId = c.getLong(albumIdCol)
                     val artistId = c.getLong(artistIdCol)
@@ -278,7 +291,6 @@ class LocalLibrary(
                     val bitrateKbps = if (bitrateCol >= 0) (runCatching { c.getInt(bitrateCol) }.getOrDefault(0) / 1000) else 0
                     val art = albumArtUri(albumId)
                     val uri = ContentUris.withAppendedId(collection, id).toString()
-                    val data = if (dataCol >= 0) c.getString(dataCol).orEmpty() else ""
                     if (data.contains('/')) dirs[id.toString()] = data.substringBeforeLast('/')
                     // TRACK packs disc * 1000 + track; the raw tags are preferred when android exposes them
                     val packed = if (trackCol >= 0) runCatching { c.getInt(trackCol) }.getOrDefault(0) else 0
@@ -311,7 +323,7 @@ class LocalLibrary(
                 }
             }
         }
-        out += visibleDsdFiles(out.mapTo(hashSetOf()) { it.id }, dirs, stamps)
+        out += visibleDsdFiles(out.mapTo(hashSetOf()) { it.id }, dirs, stamps, keep)
         dsdCache.keys.retainAll(out.filter { it.suffix == "dsf" || it.suffix == "dff" }.mapTo(HashSet()) { it.streamUrl })
         for (index in out.indices) {
             currentCoroutineContext().ensureActive()
@@ -378,7 +390,8 @@ class LocalLibrary(
             .sortedByDescending { albumDateAdded[it.id] ?: 0L }
     }
 
-    private fun visibleDsdFiles(indexed: Set<String>, dirs: MutableMap<String, String>, stamps: MutableMap<String, String>): List<Song> {
+    private fun visibleDsdFiles(indexed: Set<String>, dirs: MutableMap<String, String>, stamps: MutableMap<String, String>,
+                                keep: (String) -> Boolean): List<Song> {
         val collection = MediaStore.Files.getContentUri("external")
         val columns = arrayOf(MediaStore.MediaColumns._ID, MediaStore.MediaColumns.DISPLAY_NAME,
             MediaStore.MediaColumns.MIME_TYPE, MediaStore.MediaColumns.DATE_ADDED,
@@ -400,9 +413,10 @@ class LocalLibrary(
                     val name = cursor.getString(nameColumn).orEmpty()
                     val suffix = suffixFrom(name, cursor.getString(mimeColumn))
                     if (suffix != "dsf" && suffix != "dff") continue
+                    val path = cursor.getString(pathColumn).orEmpty()
+                    if (!keep(path)) continue
                     val id = "local-dsd-$mediaId"
                     stamps[id] = "${cursor.getLong(modifiedColumn)}:${cursor.getLong(sizeColumn)}"
-                    val path = cursor.getString(pathColumn).orEmpty()
                     val folder = path.substringBeforeLast('/', "")
                     if (folder.isNotBlank()) dirs[id] = folder
                     val gain = path.takeIf(String::isNotBlank)?.let(gainProvider)

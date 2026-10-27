@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="local_folders_title">"Cartelle musicali"</string>
+    <string name="local_folders_whole">"Tutto il dispositivo"</string>
+    <string name="local_folders_whole_summary">"Tutti i file musicali su questo dispositivo"</string>
+    <string name="local_folders_chosen">"Solo cartelle scelte"</string>
+    <string name="local_folders_chosen_summary">"Solo la musica nelle cartelle che scegli"</string>
+    <string name="local_folders_add">"Aggiungi cartella"</string>
+    <string name="local_folders_exclude">"Escludi una cartella"</string>
+    <string name="local_folders_exclude_summary">"Le cartelle escluse vengono saltate in entrambe le modalità. I brani che Aurora salva in Music/Aurora restano, a meno che tu non escluda proprio quella cartella."</string>
+    <string name="local_folders_unsupported">"Scegli una cartella nella memoria del dispositivo o sulla scheda SD."</string>
+</resources>
