@@ -71,7 +71,8 @@ class AppContainer(context: Context) {
     private val soundcloudPendingLikes = SoundCloudPendingLikes(appContext.filesDir)
 
     val localLibrary = LocalLibrary(appContext, gainProvider = { path -> replayGainStore.gainsFor(path) },
-        separatorsProvider = { settingsStore.artistSeparators.first() })
+        separatorsProvider = { settingsStore.artistSeparators.first() },
+        trackCoversProvider = { settingsStore.trackCovers.first() })
     private val localStore = LocalStore(appContext.filesDir)
     private val localIndexRequested = java.util.concurrent.atomic.AtomicBoolean(false)
 
@@ -461,7 +462,7 @@ class AppContainer(context: Context) {
         scope.launch { followMediaStore() }
         scope.launch {
             var first = true
-            settingsStore.artistSeparators.collect {
+            kotlinx.coroutines.flow.combine(settingsStore.artistSeparators, settingsStore.trackCovers, ::Pair).collect {
                 if (!first) {
                     _libraryReload.value++
                 }

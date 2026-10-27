@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"每首歌单独封面"</string>
+    <string name="track_covers_desc">"显示每首歌内嵌的封面，而不是整张专辑共用一张封面。仅限本设备上的音乐。"</string>
+</resources>

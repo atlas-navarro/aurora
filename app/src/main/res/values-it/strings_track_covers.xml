@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Copertina separata per brano"</string>
+    <string name="track_covers_desc">"Mostra la copertina incorporata di ogni brano invece di un'unica copertina per l'intero album. Solo musica su questo dispositivo."</string>
+</resources>

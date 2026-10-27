@@ -35,6 +35,7 @@ class LocalLibrary(
     // scanned replaygain overlaid by path since mediastore tags rarely carry it
     private val gainProvider: (String) -> Pair<Float, Float>? = { null },
     private val separatorsProvider: suspend () -> ArtistSeparators = { ArtistSeparators() },
+    private val trackCoversProvider: suspend () -> Boolean = { false },
 ) : LocalCatalog {
 
     @Volatile private var loaded = false
@@ -50,6 +51,7 @@ class LocalLibrary(
     private var rawSongs: List<Song> = emptyList()
     @Volatile private var artistIndex = LocalArtistIndex(emptyList(), ArtistSeparators())
     @Volatile private var appliedSeparators: ArtistSeparators? = null
+    @Volatile private var appliedTrackCovers = false
 
     @Volatile private var matchIndex: Map<String, List<Song>> = emptyMap()
 
@@ -62,11 +64,12 @@ class LocalLibrary(
 
     override suspend fun ensureLoaded() {
         val separators = separatorsProvider()
-        if (loaded && separators == appliedSeparators) return
+        if (loaded && separators == appliedSeparators && trackCoversProvider() == appliedTrackCovers) return
         mutex.withLock {
             val current = separatorsProvider()
-            if (!loaded) { scan(current); loaded = canReadAudio() }
-            else if (current != appliedSeparators) withContext(Dispatchers.IO) { indexArtists(current) }
+            val covers = trackCoversProvider()
+            if (!loaded) { scan(current, covers); loaded = canReadAudio() }
+            else if (current != appliedSeparators || covers != appliedTrackCovers) withContext(Dispatchers.IO) { indexArtists(current, covers) }
         }
     }
 
@@ -74,7 +77,7 @@ class LocalLibrary(
 
     suspend fun refresh(): Boolean = mutex.withLock {
         val before = rawSongs
-        scan(separatorsProvider())
+        scan(separatorsProvider(), trackCoversProvider())
         loaded = canReadAudio()
         rawSongs != before
     }
@@ -201,7 +204,7 @@ class LocalLibrary(
     }
 
     @androidx.annotation.OptIn(UnstableApi::class)
-    private suspend fun scan(separators: ArtistSeparators) = withContext(Dispatchers.IO) {
+    private suspend fun scan(separators: ArtistSeparators, trackCovers: Boolean) = withContext(Dispatchers.IO) {
         val signature = mediaSignature()
         val collection = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
         val cols = arrayListOf(
@@ -355,7 +358,7 @@ class LocalLibrary(
         indexedSignature = signature
         positions = order
         rawSongs = out
-        indexArtists(separators)
+        indexArtists(separators, trackCovers)
         matchIndex = LocalCatalogIndex.matchIndex(out)
         dirOf = dirs
         folderRoot = LocalCatalogIndex.commonDir(dirs.values)
@@ -417,17 +420,24 @@ class LocalLibrary(
         return files
     }
 
-    private fun indexArtists(separators: ArtistSeparators) {
-        val index = LocalArtistIndex(rawSongs, separators)
+    // albums keep mediastore's one cover per album; with track covers on, songs show their own file's embedded art
+    private fun indexArtists(separators: ArtistSeparators, trackCovers: Boolean) {
+        val index = LocalArtistIndex(if (trackCovers) rawSongs.map(::ownCover) else rawSongs, separators)
         artistIndex = index
         songs = index.songs
         artists = index.artists
         byId = index.songs.associateBy { it.id }
         appliedSeparators = separators
+        appliedTrackCovers = trackCovers
     }
+
+    private fun ownCover(song: Song): Song =
+        if (AUDIO_ROW.matches(song.streamUrl)) song.copy(artworkUrl = "${song.streamUrl}/albumart") else song
 
     private companion object {
         val ALBUM_ART_BASE: Uri = Uri.parse("content://media/external/audio/albumart")
+        // cue parts (#t=) and dsd file rows have no per-row art
+        val AUDIO_ROW = Regex("""content://media/external/audio/media/\d+""")
         const val SCAN_TIMEOUT_MS = 60_000L
         const val FULL_SCAN_TIMEOUT_MS = 300_000L
         const val MAX_LEGACY_SCAN_FILES = 20_000

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Osobna okładka dla każdego utworu"</string>
+    <string name="track_covers_desc">"Pokazuj osadzoną okładkę każdego utworu zamiast jednej okładki dla całego albumu. Tylko muzyka na tym urządzeniu."</string>
+</resources>

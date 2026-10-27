@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Eigen hoes per nummer"</string>
+    <string name="track_covers_desc">"Toon de ingesloten hoes van elk nummer in plaats van één hoes voor het hele album. Alleen muziek op dit apparaat."</string>
+</resources>

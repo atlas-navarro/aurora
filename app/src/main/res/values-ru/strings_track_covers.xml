@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Отдельная обложка для каждой песни"</string>
+    <string name="track_covers_desc">"Показывать встроенную обложку каждой песни вместо одной обложки для всего альбома. Только для музыки на этом устройстве."</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Pochette propre à chaque titre"</string>
+    <string name="track_covers_desc">"Affiche la pochette intégrée de chaque titre au lieu d'une seule pochette pour tout l'album. Musique de cet appareil uniquement."</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"हर गाने का अलग कवर"</string>
+    <string name="track_covers_desc">"पूरे एल्बम के एक कवर के बजाय हर गाने का अपना एम्बेड किया हुआ कवर दिखाएँ। सिर्फ़ इस डिवाइस के संगीत के लिए।"</string>
+</resources>

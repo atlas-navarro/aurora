@@ -59,7 +59,7 @@ object ArtworkUrls {
     }.getOrNull()
 
     private fun isMediaStoreArt(uri: String): Boolean =
-        Regex("content://media/(external|internal|external_primary)/audio/albumart/[0-9]+$").matches(uri)
+        Regex("content://media/(external|internal|external_primary)/audio/(albumart/[0-9]+|media/[0-9]+/albumart)$").matches(uri)
 
     internal fun isServerArt(uri: String): Boolean = runCatching {
         val parsed = java.net.URI(uri)

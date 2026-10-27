@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Sampul terpisah per lagu"</string>
+    <string name="track_covers_desc">"Tampilkan sampul tersemat milik setiap lagu, bukan satu sampul untuk seluruh album. Hanya musik di perangkat ini."</string>
+</resources>

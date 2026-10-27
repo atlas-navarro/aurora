@@ -264,6 +264,12 @@ fun AppearanceScreen(contentPadding: PaddingValues, onBack: () -> Unit, onOpenNa
                     scope.launch { store.setLibraryColumns(i + 2) }
                 }
             }
+            item {
+                val trackCovers by store.trackCovers.collectAsStateWithLifecycle(initialValue = false)
+                SettingsSwitchRow(title = appString(R.string.track_covers_title), subtitle = appString(R.string.track_covers_desc), checked = trackCovers) { v ->
+                    scope.launch { store.setTrackCovers(v) }
+                }
+            }
 
             item { SettingsSectionTitle(appString(R.string.text_home_sections_1f24fb)) }
             val homeSections = listOf(

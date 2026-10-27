@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Portada propia por canción"</string>
+    <string name="track_covers_desc">"Muestra la portada incrustada de cada canción en lugar de una sola portada para todo el álbum. Solo música de este dispositivo."</string>
+</resources>

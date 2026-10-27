@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Her şarkıya ayrı kapak"</string>
+    <string name="track_covers_desc">"Tüm albüm için tek kapak yerine her şarkının kendi gömülü kapağını göster. Yalnızca bu cihazdaki müzik."</string>
+</resources>

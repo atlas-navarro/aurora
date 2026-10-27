@@ -972,6 +972,8 @@ class SettingsStore(private val dataStore: DataStore<Preferences>, private val f
         dataStore.edit { it[Keys.AUDIO_CACHE_LIMIT] = mb }
     }
     val artworkLookupEnabled: Flow<Boolean> = dataStore.data.map { it[Keys.ARTWORK_LOOKUP] ?: true }.distinctUntilChanged()
+    // off keeps one cover per album; on shows each local file's own embedded cover
+    val trackCovers: Flow<Boolean> = dataStore.data.map { it[Keys.TRACK_COVERS] ?: false }.distinctUntilChanged()
     val animatedCoversEnabled: Flow<Boolean> = dataStore.data.map { it[Keys.ANIMATED_COVERS] ?: true }.distinctUntilChanged()
     val animatedCoversFolder: Flow<String> = dataStore.data.map { it[Keys.ANIMATED_COVERS_FOLDER].orEmpty() }.distinctUntilChanged()
     val lrclibEnabled: Flow<Boolean> = dataStore.data.map { it[Keys.LRCLIB] ?: true }.distinctUntilChanged()
@@ -1357,6 +1359,7 @@ class SettingsStore(private val dataStore: DataStore<Preferences>, private val f
     suspend fun setLongFormSkipButtons(v: Boolean) = dataStore.edit { it[Keys.LONG_FORM_SKIP_BUTTONS] = v }
     suspend fun setOfflineMode(v: Boolean) = dataStore.edit { it[Keys.OFFLINE] = v }
     suspend fun setArtworkLookupEnabled(v: Boolean) = dataStore.edit { it[Keys.ARTWORK_LOOKUP] = v }
+    suspend fun setTrackCovers(v: Boolean) = dataStore.edit { it[Keys.TRACK_COVERS] = v }
     suspend fun setAnimatedCoversEnabled(v: Boolean) = dataStore.edit { it[Keys.ANIMATED_COVERS] = v }
     suspend fun setAnimatedCoversFolder(uri: String) = dataStore.edit { it[Keys.ANIMATED_COVERS_FOLDER] = uri }
     suspend fun setLrclibEnabled(v: Boolean) = dataStore.edit { it[Keys.LRCLIB] = v }

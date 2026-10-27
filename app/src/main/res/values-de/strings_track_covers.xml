@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"Eigenes Cover pro Song"</string>
+    <string name="track_covers_desc">"Zeigt das eingebettete Cover jedes Songs statt eines Covers für das ganze Album. Nur für Musik auf diesem Gerät."</string>
+</resources>

@@ -85,6 +85,7 @@ internal object SettingsKeys {
     val LONG_FORM_SKIP_BUTTONS = booleanPreferencesKey("long_form_skip_buttons")
     val OFFLINE = booleanPreferencesKey("offline_mode")
     val ARTWORK_LOOKUP = booleanPreferencesKey("artwork_lookup_enabled")
+    val TRACK_COVERS = booleanPreferencesKey("track_covers")
     val ANIMATED_COVERS = booleanPreferencesKey("animated_covers_enabled")
     val ANIMATED_COVERS_FOLDER = stringPreferencesKey("animated_covers_folder")
     val LRCLIB = booleanPreferencesKey("lrclib_enabled")

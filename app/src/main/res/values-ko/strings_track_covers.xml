@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"곡마다 별도 커버"</string>
+    <string name="track_covers_desc">"앨범 전체에 커버 하나 대신 각 곡에 포함된 커버를 표시합니다. 이 기기의 음악만 해당됩니다."</string>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"曲ごとに別のジャケット"</string>
+    <string name="track_covers_desc">"アルバム全体で1枚のジャケットではなく、各曲に埋め込まれたジャケットを表示します。この端末の音楽のみ。"</string>
+</resources>

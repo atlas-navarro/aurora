@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="track_covers_title">"غلاف منفصل لكل أغنية"</string>
+    <string name="track_covers_desc">"اعرض الغلاف المضمّن في كل أغنية بدلاً من غلاف واحد للألبوم كله. للموسيقى على هذا الجهاز فقط."</string>
+</resources>

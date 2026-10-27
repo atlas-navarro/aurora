@@ -46,6 +46,13 @@ class ArtworkLookupTest {
         assertNull(ArtworkUrls.decode("content://com.aurora.music.artwork/v1/garbage"))
     }
 
+    @Test fun aTracksOwnMediaStoreCoverKeepsItsOwnRequest() {
+        val own = { id: Int -> ArtworkUrls.song(song.copy(artworkUrl = "content://media/external/audio/media/$id/albumart")).artworkUrl }
+        assertEquals("content://media/external/audio/media/7/albumart", ArtworkUrls.decode(own(7))!!.original)
+        assertNotEquals(ArtworkUrls.decode(own(7))!!.key, ArtworkUrls.decode(own(8))!!.key)
+        assertEquals("content://media/external/audio/media/7", ArtworkUrls.song(song.copy(artworkUrl = "content://media/external/audio/media/7")).artworkUrl)
+    }
+
     @Test fun subsonicCoversRetainTheirOriginalForPlaceholderInspection() {
         val original = "https://server/music/rest/getCoverArt.view?id=album&size=600"
         val uri = ArtworkUrls.subsonicCover(original, "Wir sind Helden", "Von hier an blind")
