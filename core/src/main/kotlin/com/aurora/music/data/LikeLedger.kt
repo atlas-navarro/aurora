@@ -31,6 +31,8 @@ class LikeLedger(private val sources: suspend () -> List<MediaBackend>, private 
         fun matches(song: Song, title: String): List<Song> =
             byTitle[title].orEmpty().filter { sameRecording(song, it.first) }.map { it.second }.distinctBy { it.id }
 
+        fun matchesAny(song: Song, title: String): Boolean = byTitle[title]?.any { sameRecording(song, it.first) } == true
+
         fun with(song: Song, liked: Boolean): Account {
             val ids = HashMap(byId)
             val titles = HashMap(byTitle)
@@ -69,7 +71,7 @@ class LikeLedger(private val sources: suspend () -> List<MediaBackend>, private 
     }
 
     private fun likes(key: String, account: Account, song: Song, title: String, owner: Pair<String, String>?) =
-        owner?.first == key && account.has(owner.second) || account.matches(song, title).isNotEmpty()
+        owner?.first == key && account.has(owner.second) || account.matchesAny(song, title)
 
     fun likedAnywhere(song: Song, title: String = recordingKey(song.title)): Boolean {
         val owner = owner(song.id)
@@ -82,7 +84,8 @@ class LikeLedger(private val sources: suspend () -> List<MediaBackend>, private 
     suspend fun refresh() = coroutineScope {
         val all = sources()
         if (accounts.keys.retainAll(all.map { mergeNamespace(it.session) }.toSet())) bump()
-        all.map { async { load(it) } }.awaitAll()
+        // callers sit on the ui thread; whole liked libraries are mapped here
+        all.map { async(Dispatchers.IO) { load(it) } }.awaitAll()
         Unit
     }
 

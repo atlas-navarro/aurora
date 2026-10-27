@@ -392,7 +392,7 @@ class SpotifyWebBridge(context: Context) {
     }
 
     private suspend fun open(cookie: String): SpotifyPage = lock.withLock {
-        withContext(Dispatchers.Main) { page?.takeIf { pageCookie == cookie } }?.let { return@withLock it }
+        withContext(Dispatchers.Main) { page?.takeIf { pageCookie == cookie }?.also { it.view.onResume() } }?.let { return@withLock it }
         if (SystemClock.elapsedRealtime() - failedAt < RETRY_MS) throw SpotifyGraphqlException("web player unavailable")
         val startedAt = SystemClock.elapsedRealtime()
         val fresh = withContext(Dispatchers.Main) {
@@ -442,6 +442,8 @@ class SpotifyWebBridge(context: Context) {
     }
 
     private fun scheduleIdle() {
+        // an unpaused page asks the ui thread for a frame 60 times a second, even in the background
+        if (inFlight.get() == 0) page?.view?.onPause()
         main.removeCallbacks(idle)
         main.postDelayed(idle, IDLE_MS)
     }
