@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"विजेट शैली"</string>
+    <string name="widget_layout_card">"कार्ड"</string>
+    <string name="widget_layout_cover">"कवर"</string>
+    <string name="widget_theme_wallpaper">"वॉलपेपर"</string>
+    <string name="widget_theme_album">"एल्बम के रंग"</string>
+    <string name="widget_opacity">"बैकग्राउंड की अपारदर्शिता"</string>
+</resources>

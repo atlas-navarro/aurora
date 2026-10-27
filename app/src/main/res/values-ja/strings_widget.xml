@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"ウィジェットのスタイル"</string>
+    <string name="widget_layout_card">"カード"</string>
+    <string name="widget_layout_cover">"カバー"</string>
+    <string name="widget_theme_wallpaper">"壁紙"</string>
+    <string name="widget_theme_album">"アルバムの色"</string>
+    <string name="widget_opacity">"背景の不透明度"</string>
+</resources>

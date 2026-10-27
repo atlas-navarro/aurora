@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"Widgetstijl"</string>
+    <string name="widget_layout_card">"Kaart"</string>
+    <string name="widget_layout_cover">"Hoes"</string>
+    <string name="widget_theme_wallpaper">"Achtergrond"</string>
+    <string name="widget_theme_album">"Albumkleuren"</string>
+    <string name="widget_opacity">"Dekking van achtergrond"</string>
+</resources>

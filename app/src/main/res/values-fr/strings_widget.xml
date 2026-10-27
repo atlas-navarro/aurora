@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"Style du widget"</string>
+    <string name="widget_layout_card">"Carte"</string>
+    <string name="widget_layout_cover">"Pochette"</string>
+    <string name="widget_theme_wallpaper">"Fond d'écran"</string>
+    <string name="widget_theme_album">"Couleurs de l'album"</string>
+    <string name="widget_opacity">"Opacité de l'arrière-plan"</string>
+</resources>

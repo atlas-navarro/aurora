@@ -178,6 +178,17 @@
             </intent-filter>
         </receiver>
 
+        <activity
+            android:name=".ui.widget.AuroraWidgetConfigActivity"
+            android:exported="true"
+            android:excludeFromRecents="true"
+            android:taskAffinity=""
+            android:theme="@style/Theme.Aurora.WidgetConfig">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
         <receiver
             android:name=".ui.widget.AuroraWidgetReceiver"
             android:exported="false"

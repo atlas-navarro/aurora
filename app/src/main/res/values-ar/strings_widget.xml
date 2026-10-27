@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"نمط الأداة"</string>
+    <string name="widget_layout_card">"بطاقة"</string>
+    <string name="widget_layout_cover">"غلاف"</string>
+    <string name="widget_theme_wallpaper">"خلفية الشاشة"</string>
+    <string name="widget_theme_album">"ألوان الألبوم"</string>
+    <string name="widget_opacity">"عتامة الخلفية"</string>
+</resources>

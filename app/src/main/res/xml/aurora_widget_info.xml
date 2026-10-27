@@ -6,6 +6,8 @@
     android:targetCellHeight="1"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
+    android:configure="com.aurora.music.ui.widget.AuroraWidgetConfigActivity"
+    android:widgetFeatures="reconfigurable|configuration_optional"
     android:description="@string/widget_description"
     android:previewImage="@drawable/ic_launcher_foreground"
     android:initialLayout="@layout/glance_default_loading_layout" />

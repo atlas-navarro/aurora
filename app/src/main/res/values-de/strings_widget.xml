@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"Widget-Stil"</string>
+    <string name="widget_layout_card">"Karte"</string>
+    <string name="widget_layout_cover">"Cover"</string>
+    <string name="widget_theme_wallpaper">"Hintergrundbild"</string>
+    <string name="widget_theme_album">"Albumfarben"</string>
+    <string name="widget_opacity">"Deckkraft des Hintergrunds"</string>
+</resources>

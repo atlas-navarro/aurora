@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"Widget stili"</string>
+    <string name="widget_layout_card">"Kart"</string>
+    <string name="widget_layout_cover">"Kapak"</string>
+    <string name="widget_theme_wallpaper">"Duvar kağıdı"</string>
+    <string name="widget_theme_album">"Albüm renkleri"</string>
+    <string name="widget_opacity">"Arka plan opaklığı"</string>
+</resources>

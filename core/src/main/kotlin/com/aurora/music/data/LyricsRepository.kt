@@ -45,6 +45,8 @@ class LyricsRepository(
 
     // sources are asked in the chosen order; synced lyrics win over an earlier plain result
     suspend fun lyricsFor(song: Song): Lyrics? {
+        // a file's own lyrics beat every lookup
+        attempt { withContext(Dispatchers.IO) { FileLyrics.of(song) } }?.let { return it }
         val backend = backendProvider()
         val type = backend?.sourceType(song)
         val spotify = spotifyAllowed(type)
@@ -263,7 +265,12 @@ class LyricsRepository(
             segments += at to body.substring(from)
             val words = segments.mapIndexedNotNull { i, (time, text) ->
                 if (text.isEmpty()) null else LyricWord(time, segments.getOrNull(i + 1)?.first ?: -1, text)
-            }.toMutableList()
+            }
+            return trimmedLine(startMs, words)
+        }
+
+        fun trimmedLine(startMs: Long, timed: List<LyricWord>): LyricLine {
+            val words = timed.toMutableList()
             while (words.firstOrNull()?.text?.isBlank() == true) words.removeAt(0)
             while (words.lastOrNull()?.text?.isBlank() == true) words.removeAt(words.lastIndex)
             if (words.isNotEmpty()) {

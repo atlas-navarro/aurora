@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"Стиль виджета"</string>
+    <string name="widget_layout_card">"Карточка"</string>
+    <string name="widget_layout_cover">"Обложка"</string>
+    <string name="widget_theme_wallpaper">"Обои"</string>
+    <string name="widget_theme_album">"Цвета альбома"</string>
+    <string name="widget_opacity">"Непрозрачность фона"</string>
+</resources>

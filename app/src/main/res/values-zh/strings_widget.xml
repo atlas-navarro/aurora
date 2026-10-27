@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"小部件样式"</string>
+    <string name="widget_layout_card">"卡片"</string>
+    <string name="widget_layout_cover">"封面"</string>
+    <string name="widget_theme_wallpaper">"壁纸"</string>
+    <string name="widget_theme_album">"专辑配色"</string>
+    <string name="widget_opacity">"背景不透明度"</string>
+</resources>

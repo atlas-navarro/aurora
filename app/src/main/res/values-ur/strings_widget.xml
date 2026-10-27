@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_style_title">"ویجیٹ کا انداز"</string>
+    <string name="widget_layout_card">"کارڈ"</string>
+    <string name="widget_layout_cover">"کور"</string>
+    <string name="widget_theme_wallpaper">"وال پیپر"</string>
+    <string name="widget_theme_album">"البم کے رنگ"</string>
+    <string name="widget_opacity">"پس منظر کی غیر شفافیت"</string>
+</resources>

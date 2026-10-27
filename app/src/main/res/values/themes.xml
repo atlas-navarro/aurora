@@ -7,6 +7,13 @@
         <item name="android:windowLightStatusBar">false</item>
     </style>
 
+    <style name="Theme.Aurora.WidgetConfig" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+    </style>
+
     <!-- Cast button (MediaRouteButton) tinted to match the player's light-on-dark icons. -->
     <style name="AuroraMediaRouteButton" parent="Widget.MediaRouter.MediaRouteButton">
         <item name="mediaRouteButtonTint">#FFFFFFFF</item>

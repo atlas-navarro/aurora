@@ -20,6 +20,7 @@ dependencies {
     api(libs.retrofit.gson)
     api(libs.gson)
     api(libs.androidx.datastore.preferences.core)
+    implementation(libs.jaudiotagger)
     testImplementation(libs.junit)
     testImplementation(libs.okhttp.mockwebserver)
     testImplementation(libs.okhttp.tls)
