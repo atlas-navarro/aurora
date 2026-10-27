@@ -1,5 +1,6 @@
 package com.aurora.music.ui.components
 
+import com.aurora.music.data.LongForm
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -33,6 +34,8 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.filled.RepeatOne
+import androidx.compose.material.icons.filled.Forward10
+import androidx.compose.material.icons.filled.Replay10
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
@@ -184,7 +187,9 @@ fun PlaybackDock(
             Spacer(Modifier.width(8.dp))
             Column(Modifier.width(center), horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    IconButton(onClick = onToggleShuffle) {
+                    if (state.skipButtons) IconButton(onClick = { skipBy(state, -LongForm.SKIP_SEC, onSeek) }) {
+                        Icon(Icons.Filled.Replay10, appString(R.string.skip_back_seconds, LongForm.SKIP_SEC), modifier = Modifier.size(22.dp), tint = colors.onSurface)
+                    } else IconButton(onClick = onToggleShuffle) {
                         Icon(Icons.Filled.Shuffle, appString(R.string.text_shuffle_5b772b), modifier = Modifier.size(20.dp),
                             tint = if (state.shuffle) colors.primary else colors.onSurfaceVariant)
                     }
@@ -202,7 +207,9 @@ fun PlaybackDock(
                     IconButton(onClick = onNext) {
                         Icon(Icons.Filled.SkipNext, appString(R.string.text_next_bc9819), tint = colors.onSurface)
                     }
-                    IconButton(onClick = onCycleRepeat) {
+                    if (state.skipButtons) IconButton(onClick = { skipBy(state, LongForm.SKIP_SEC, onSeek) }) {
+                        Icon(Icons.Filled.Forward10, appString(R.string.skip_forward_seconds, LongForm.SKIP_SEC), modifier = Modifier.size(22.dp), tint = colors.onSurface)
+                    } else IconButton(onClick = onCycleRepeat) {
                         Icon(if (state.repeat == RepeatMode.ONE) Icons.Filled.RepeatOne else Icons.Filled.Repeat,
                             appString(R.string.text_repeat_659eba), modifier = Modifier.size(20.dp),
                             tint = if (state.repeat != RepeatMode.OFF) colors.primary else colors.onSurfaceVariant)
@@ -224,6 +231,10 @@ fun PlaybackDock(
             }
         }
     }
+}
+
+private fun skipBy(state: PlayerUiState, seconds: Int, onSeek: (Float) -> Unit) {
+    if (state.durationSec > 0) onSeek(((state.positionSec + seconds) / state.durationSec).coerceIn(0f, 1f))
 }
 
 @Composable

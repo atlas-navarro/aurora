@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"پوڈکاسٹ اور آڈیو بکس"</string>
+    <string name="resume_podcasts">"پوڈکاسٹ دوبارہ شروع کریں"</string>
+    <string name="resume_podcasts_hint">"ہر قسط وہیں سے شروع ہوتی ہے جہاں آپ نے چھوڑی تھی"</string>
+    <string name="resume_long_tracks">"لمبے ٹریک دوبارہ شروع کریں"</string>
+    <string name="resume_long_tracks_hint">"آڈیو بکس اور 20 منٹ سے لمبی ہر چیز وہیں سے شروع ہوتی ہے جہاں آپ نے چھوڑی تھی"</string>
+    <string name="long_form_skip_buttons">"اسکپ بٹن"</string>
+    <string name="long_form_skip_buttons_hint">"پوڈکاسٹ اور لمبے ٹریکس کے لیے شفل اور ریپیٹ کی جگہ 10 سیکنڈ کے اسکپ بٹن دکھائیں"</string>
+    <string name="skip_back_seconds">"%1$d سیکنڈ پیچھے"</string>
+    <string name="skip_forward_seconds">"%1$d سیکنڈ آگے"</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Podcasty i audiobooki"</string>
+    <string name="resume_podcasts">"Wznawiaj podcasty"</string>
+    <string name="resume_podcasts_hint">"Każdy odcinek wznawia się tam, gdzie go zostawiono"</string>
+    <string name="resume_long_tracks">"Wznawiaj długie utwory"</string>
+    <string name="resume_long_tracks_hint">"Audiobooki i wszystko powyżej 20 minut wznawia się tam, gdzie je zostawiono"</string>
+    <string name="long_form_skip_buttons">"Przyciski przewijania"</string>
+    <string name="long_form_skip_buttons_hint">"Pokazuj przyciski przewijania o 10 sekund zamiast losowania i powtarzania dla podcastów i długich utworów"</string>
+    <string name="skip_back_seconds">"Wstecz o %1$d s"</string>
+    <string name="skip_forward_seconds">"Naprzód o %1$d s"</string>
+</resources>

@@ -72,6 +72,8 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.filled.RepeatOne
+import androidx.compose.material.icons.filled.Forward10
+import androidx.compose.material.icons.filled.Replay10
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
@@ -213,6 +215,10 @@ fun PlayerScreen(
     if (showComments && state.supportsComments) CommentsSheet(state, focusComment, onDismiss = { showComments = false; focusComment = null },
         onSeek = onSeek, onPost = onPostComment)
     val panes = LocalPlayerPanes.current
+    val playbackPosition = com.aurora.music.ui.components.LocalPlaybackPosition.current
+    val skipBy = { seconds: Int ->
+        if (state.durationSec > 0) onSeek(((playbackPosition.value + seconds) / state.durationSec).coerceIn(0f, 1f))
+    }
     val sidePane = PlayerPane.valueOf(sidePaneName).takeIf { it in panes } ?: PlayerPane.LYRICS
     val portraitTab = portraitTabName?.let { PlayerPane.valueOf(it) }?.takeIf { it in panes }
     LaunchedEffect(requestedPane) {
@@ -669,7 +675,11 @@ fun PlayerScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
+                if (state.skipButtons) Icon(
+                    Icons.Filled.Replay10, appString(R.string.skip_back_seconds, com.aurora.music.data.LongForm.SKIP_SEC),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(44.dp).clip(CircleShape).clickable { skipBy(-com.aurora.music.data.LongForm.SKIP_SEC) }.padding(8.dp),
+                ) else Icon(
                     if (state.isMix) Icons.Filled.GraphicEq else Icons.Filled.Shuffle,
                     if (state.isMix) appString(R.string.text_edit_mix_transitions_76ee01) else appString(R.string.text_shuffle_5b772b),
                     tint = if (state.shuffle || state.isMix) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
@@ -705,7 +715,11 @@ fun PlayerScreen(
                     tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.size(56.dp).clip(CircleShape).clickable(onClick = onNext).padding(6.dp),
                 )
-                Icon(
+                if (state.skipButtons) Icon(
+                    Icons.Filled.Forward10, appString(R.string.skip_forward_seconds, com.aurora.music.data.LongForm.SKIP_SEC),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(44.dp).clip(CircleShape).clickable { skipBy(com.aurora.music.data.LongForm.SKIP_SEC) }.padding(8.dp),
+                ) else Icon(
                     imageVector = if (state.repeat == RepeatMode.ONE) Icons.Filled.RepeatOne else Icons.Filled.Repeat,
                     contentDescription = appString(R.string.text_repeat_659eba),
                     tint = if (state.repeat != RepeatMode.OFF) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,

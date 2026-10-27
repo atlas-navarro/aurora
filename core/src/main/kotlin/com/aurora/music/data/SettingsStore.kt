@@ -1352,6 +1352,9 @@ class SettingsStore(private val dataStore: DataStore<Preferences>, private val f
     suspend fun setIndependentOutput(v: Boolean) = editManualProcessing { it[Keys.INDEPENDENT_OUTPUT] = v }
     suspend fun setScrobble(v: Boolean) = dataStore.edit { it[Keys.SCROBBLE] = v }
     suspend fun setAutoplayRadio(v: Boolean) = dataStore.edit { it[Keys.AUTOPLAY_RADIO] = v }
+    suspend fun setResumePodcasts(v: Boolean) = dataStore.edit { it[Keys.RESUME_PODCASTS] = v }
+    suspend fun setResumeLongTracks(v: Boolean) = dataStore.edit { it[Keys.RESUME_LONG_TRACKS] = v }
+    suspend fun setLongFormSkipButtons(v: Boolean) = dataStore.edit { it[Keys.LONG_FORM_SKIP_BUTTONS] = v }
     suspend fun setOfflineMode(v: Boolean) = dataStore.edit { it[Keys.OFFLINE] = v }
     suspend fun setArtworkLookupEnabled(v: Boolean) = dataStore.edit { it[Keys.ARTWORK_LOOKUP] = v }
     suspend fun setAnimatedCoversEnabled(v: Boolean) = dataStore.edit { it[Keys.ANIMATED_COVERS] = v }

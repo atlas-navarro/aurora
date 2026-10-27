@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"播客和有声书"</string>
+    <string name="resume_podcasts">"继续播放播客"</string>
+    <string name="resume_podcasts_hint">"每集都从上次停下的地方继续"</string>
+    <string name="resume_long_tracks">"继续播放长曲目"</string>
+    <string name="resume_long_tracks_hint">"有声书和所有超过 20 分钟的内容都从上次停下的地方继续"</string>
+    <string name="long_form_skip_buttons">"跳转按钮"</string>
+    <string name="long_form_skip_buttons_hint">"播放播客和长曲目时，用 10 秒跳转按钮替代随机播放和重复"</string>
+    <string name="skip_back_seconds">"后退 %1$d 秒"</string>
+    <string name="skip_forward_seconds">"前进 %1$d 秒"</string>
+</resources>

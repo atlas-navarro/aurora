@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"पॉडकास्ट और ऑडियोबुक"</string>
+    <string name="resume_podcasts">"पॉडकास्ट फिर से शुरू करें"</string>
+    <string name="resume_podcasts_hint">"हर एपिसोड वहीं से शुरू होता है जहाँ आपने छोड़ा था"</string>
+    <string name="resume_long_tracks">"लंबे ट्रैक फिर से शुरू करें"</string>
+    <string name="resume_long_tracks_hint">"ऑडियोबुक और 20 मिनट से लंबी हर चीज़ वहीं से शुरू होती है जहाँ आपने छोड़ा था"</string>
+    <string name="long_form_skip_buttons">"स्किप बटन"</string>
+    <string name="long_form_skip_buttons_hint">"पॉडकास्ट और लंबे ट्रैक के लिए शफ़ल और रिपीट की जगह 10 सेकंड के स्किप बटन दिखाएँ"</string>
+    <string name="skip_back_seconds">"%1$d सेकंड पीछे"</string>
+    <string name="skip_forward_seconds">"%1$d सेकंड आगे"</string>
+</resources>

@@ -9,6 +9,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Audiotrack
+import androidx.compose.material.icons.filled.AutoStories
+import androidx.compose.material.icons.filled.Forward10
+import androidx.compose.material.icons.filled.Podcasts
 import androidx.compose.material.icons.filled.Devices
 import androidx.compose.material.icons.filled.Tune
 import androidx.compose.material.icons.filled.VolumeUp
@@ -85,6 +88,17 @@ fun PlaybackSettingsScreen(
             item {
                 SettingsSliderRow(appString(R.string.text_playback_speed_6ff42b), "${"%.2f".format(prefs.defaultSpeed)}x", prefs.defaultSpeed, 0.5f..2.0f, steps = 5) { v ->
                     scope.launch { store.setDefaultSpeed(v) }
+                }
+            }
+
+            item { SettingsSectionTitle(appString(R.string.long_form_title)) }
+            item {
+                SettingsGroup {
+                    SettingsSwitchRow(Icons.Filled.Podcasts, appString(R.string.resume_podcasts), appString(R.string.resume_podcasts_hint), prefs.resumePodcasts) { v -> scope.launch { store.setResumePodcasts(v) } }
+                    SettingsRowDivider()
+                    SettingsSwitchRow(Icons.Filled.AutoStories, appString(R.string.resume_long_tracks), appString(R.string.resume_long_tracks_hint), prefs.resumeLongTracks) { v -> scope.launch { store.setResumeLongTracks(v) } }
+                    SettingsRowDivider()
+                    SettingsSwitchRow(Icons.Filled.Forward10, appString(R.string.long_form_skip_buttons), appString(R.string.long_form_skip_buttons_hint), prefs.longFormSkipButtons) { v -> scope.launch { store.setLongFormSkipButtons(v) } }
                 }
             }
 

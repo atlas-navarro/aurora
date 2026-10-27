@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Подкасты и аудиокниги"</string>
+    <string name="resume_podcasts">"Продолжать подкасты"</string>
+    <string name="resume_podcasts_hint">"Каждый выпуск продолжается с того места, где вы остановились"</string>
+    <string name="resume_long_tracks">"Продолжать длинные треки"</string>
+    <string name="resume_long_tracks_hint">"Аудиокниги и всё длиннее 20 минут продолжаются с того места, где вы остановились"</string>
+    <string name="long_form_skip_buttons">"Кнопки перемотки"</string>
+    <string name="long_form_skip_buttons_hint">"Показывать кнопки перемотки на 10 секунд вместо перемешивания и повтора для подкастов и длинных треков"</string>
+    <string name="skip_back_seconds">"Назад на %1$d с"</string>
+    <string name="skip_forward_seconds">"Вперёд на %1$d с"</string>
+</resources>

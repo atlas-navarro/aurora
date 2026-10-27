@@ -65,6 +65,7 @@ class AppContainer(context: Context) {
     val placesStore by lazy { PlacesStore(appContext) }
 
     val queueStore = QueueStore(appContext.filesDir)
+    val resumePoints = ResumePoints(appContext.filesDir)
 
     val replayGainStore = ReplayGainStore(appContext.filesDir)
     private val soundcloudPendingLikes = SoundCloudPendingLikes(appContext.filesDir)

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"ポッドキャストとオーディオブック"</string>
+    <string name="resume_podcasts">"ポッドキャストを続きから再生"</string>
+    <string name="resume_podcasts_hint">"各エピソードを前回止めたところから再生します"</string>
+    <string name="resume_long_tracks">"長いトラックを続きから再生"</string>
+    <string name="resume_long_tracks_hint">"オーディオブックや20分を超えるものを前回止めたところから再生します"</string>
+    <string name="long_form_skip_buttons">"スキップボタン"</string>
+    <string name="long_form_skip_buttons_hint">"ポッドキャストや長いトラックでは、シャッフルとリピートの代わりに10秒スキップボタンを表示します"</string>
+    <string name="skip_back_seconds">"%1$d秒戻る"</string>
+    <string name="skip_forward_seconds">"%1$d秒進む"</string>
+</resources>

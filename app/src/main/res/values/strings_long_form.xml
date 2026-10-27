@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Podcasts and Audiobooks"</string>
+    <string name="resume_podcasts">"Resume Podcasts"</string>
+    <string name="resume_podcasts_hint">"Each episode picks up where you left it"</string>
+    <string name="resume_long_tracks">"Resume Long Tracks"</string>
+    <string name="resume_long_tracks_hint">"Audiobooks and anything over 20 minutes pick up where you left them"</string>
+    <string name="long_form_skip_buttons">"Skip Buttons"</string>
+    <string name="long_form_skip_buttons_hint">"Show 10 second skip buttons in place of shuffle and repeat for podcasts and long tracks"</string>
+    <string name="skip_back_seconds">"Back %1$d Seconds"</string>
+    <string name="skip_forward_seconds">"Forward %1$d Seconds"</string>
+</resources>

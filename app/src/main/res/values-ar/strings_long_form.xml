@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"البودكاست والكتب الصوتية"</string>
+    <string name="resume_podcasts">"استئناف البودكاست"</string>
+    <string name="resume_podcasts_hint">"تستأنف كل حلقة من حيث توقفت"</string>
+    <string name="resume_long_tracks">"استئناف المقاطع الطويلة"</string>
+    <string name="resume_long_tracks_hint">"تستأنف الكتب الصوتية وكل ما يزيد عن 20 دقيقة من حيث توقفت"</string>
+    <string name="long_form_skip_buttons">"أزرار التخطي"</string>
+    <string name="long_form_skip_buttons_hint">"إظهار أزرار تخطٍّ لمدة 10 ثوانٍ بدلًا من التشغيل العشوائي والتكرار للبودكاست والمقاطع الطويلة"</string>
+    <string name="skip_back_seconds">"رجوع %1$d ثانية"</string>
+    <string name="skip_forward_seconds">"تقديم %1$d ثانية"</string>
+</resources>

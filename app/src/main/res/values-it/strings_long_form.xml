@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Podcast e audiolibri"</string>
+    <string name="resume_podcasts">"Riprendi i podcast"</string>
+    <string name="resume_podcasts_hint">"Ogni episodio riprende da dove l’hai lasciato"</string>
+    <string name="resume_long_tracks">"Riprendi i brani lunghi"</string>
+    <string name="resume_long_tracks_hint">"Gli audiolibri e tutto ciò che supera i 20 minuti riprendono da dove li hai lasciati"</string>
+    <string name="long_form_skip_buttons">"Pulsanti di salto"</string>
+    <string name="long_form_skip_buttons_hint">"Mostra pulsanti per saltare di 10 secondi al posto di casuale e ripeti per podcast e brani lunghi"</string>
+    <string name="skip_back_seconds">"Indietro di %1$d secondi"</string>
+    <string name="skip_forward_seconds">"Avanti di %1$d secondi"</string>
+</resources>

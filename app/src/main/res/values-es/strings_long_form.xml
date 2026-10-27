@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Pódcasts y audiolibros"</string>
+    <string name="resume_podcasts">"Reanudar pódcasts"</string>
+    <string name="resume_podcasts_hint">"Cada episodio continúa donde lo dejaste"</string>
+    <string name="resume_long_tracks">"Reanudar pistas largas"</string>
+    <string name="resume_long_tracks_hint">"Los audiolibros y todo lo que dure más de 20 minutos continúa donde lo dejaste"</string>
+    <string name="long_form_skip_buttons">"Botones de salto"</string>
+    <string name="long_form_skip_buttons_hint">"Muestra botones para saltar 10 segundos en lugar de aleatorio y repetir en pódcasts y pistas largas"</string>
+    <string name="skip_back_seconds">"Atrás %1$d segundos"</string>
+    <string name="skip_forward_seconds">"Adelante %1$d segundos"</string>
+</resources>

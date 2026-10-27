@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Podcast’ler ve Sesli Kitaplar"</string>
+    <string name="resume_podcasts">"Podcast’lere Devam Et"</string>
+    <string name="resume_podcasts_hint">"Her bölüm kaldığınız yerden devam eder"</string>
+    <string name="resume_long_tracks">"Uzun Parçalara Devam Et"</string>
+    <string name="resume_long_tracks_hint">"Sesli kitaplar ve 20 dakikadan uzun her şey kaldığınız yerden devam eder"</string>
+    <string name="long_form_skip_buttons">"Atlama Düğmeleri"</string>
+    <string name="long_form_skip_buttons_hint">"Podcast’lerde ve uzun parçalarda karıştırma ve tekrar yerine 10 saniyelik atlama düğmeleri gösterir"</string>
+    <string name="skip_back_seconds">"%1$d Saniye Geri"</string>
+    <string name="skip_forward_seconds">"%1$d Saniye İleri"</string>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"팟캐스트 및 오디오북"</string>
+    <string name="resume_podcasts">"팟캐스트 이어 듣기"</string>
+    <string name="resume_podcasts_hint">"각 에피소드를 멈춘 곳부터 이어서 재생합니다"</string>
+    <string name="resume_long_tracks">"긴 트랙 이어 듣기"</string>
+    <string name="resume_long_tracks_hint">"오디오북과 20분이 넘는 모든 항목을 멈춘 곳부터 이어서 재생합니다"</string>
+    <string name="long_form_skip_buttons">"건너뛰기 버튼"</string>
+    <string name="long_form_skip_buttons_hint">"팟캐스트와 긴 트랙에서 셔플과 반복 대신 10초 건너뛰기 버튼을 표시합니다"</string>
+    <string name="skip_back_seconds">"%1$d초 뒤로"</string>
+    <string name="skip_forward_seconds">"%1$d초 앞으로"</string>
+</resources>

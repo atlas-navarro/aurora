@@ -122,6 +122,7 @@ class PlaybackService : MediaLibraryService() {
         PlaybackListeningDetails({ play -> container.listeningDetails.save(play) }, { container.settingsStore.processingRoutes.current.route },
             { container.signalPath.value }, { lastAudioPrefs }, { lastRack }, { zone, point -> container.placesStore.sample(zone, point) }, { crossfadeMs.toLong() })
     }
+    private val resumeTracker by lazy { ResumeTracker(container.resumePoints, scope, container.settingsStore.playbackPrefs) }
     private val playbackReporting by lazy { PlaybackReportingController(container.repository, container.playbackReports,
         allowed = { container.playbackReportingAllowed.value && !container.offline.value && container.sessionReady.value == true },
         nativePlaying = { active -> active === player && usbSink?.isNativeEngineActive == true && player.playWhenReady }) }
@@ -392,6 +393,7 @@ class PlaybackService : MediaLibraryService() {
             .build()
 
         playbackReporting.observe(player)
+        resumeTracker.observe(player)
 
         setupCast()
         connectHost = com.aurora.music.playback.network.AndroidConnectHost(this, { player }, ::rendererRoute,
@@ -682,6 +684,7 @@ class PlaybackService : MediaLibraryService() {
     private fun trackPlayback() {
         val active = mediaSession?.player
         playbackReporting.observe(active)
+        resumeTracker.observe(active)
         val nativeUsb = active === player && usbSink?.isNativeEngineActive == true && player.playWhenReady
         listeningHistory.track(active, nativeUsb)
         listeningDetails.track(active, nativeUsb)
@@ -2092,6 +2095,7 @@ class PlaybackService : MediaLibraryService() {
     override fun onDestroy() {
         musicHaptics.close()
         playbackReporting.close()
+        resumeTracker.close()
         listeningHistory.finish()
         listeningDetails.finish()
         networkDisposed = true

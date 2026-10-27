@@ -45,8 +45,11 @@ data class PlayerUiState(
     val videoIsCanvas: Boolean = false,
     val supportsCanvas: Boolean = false,
     val supportsMusicVideo: Boolean = false,
+    val longFormSkipButtons: Boolean = true,
 ) {
     val durationSec: Int get() = if (isLive) 0 else timelineDurationSec.takeIf { it > 0 } ?: current.durationSec
+    val skipButtons: Boolean get() = longFormSkipButtons && !isMix && !isLive &&
+        com.aurora.music.data.LongForm.applies(current.id, maxOf(current.durationSec, durationSec))
     val progress: Float get() = if (durationSec == 0) 0f else (positionSec / durationSec).coerceIn(0f, 1f)
     val isCurrentLiked: Boolean get() = likedIds.contains(current.id)
     val hasTrack: Boolean get() = current.id.isNotEmpty()

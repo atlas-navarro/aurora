@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Podcast dan Buku Audio"</string>
+    <string name="resume_podcasts">"Lanjutkan Podcast"</string>
+    <string name="resume_podcasts_hint">"Setiap episode berlanjut dari tempat Anda berhenti"</string>
+    <string name="resume_long_tracks">"Lanjutkan Lagu Panjang"</string>
+    <string name="resume_long_tracks_hint">"Buku audio dan apa pun yang lebih dari 20 menit berlanjut dari tempat Anda berhenti"</string>
+    <string name="long_form_skip_buttons">"Tombol Lompat"</string>
+    <string name="long_form_skip_buttons_hint">"Tampilkan tombol lompat 10 detik sebagai ganti acak dan ulangi untuk podcast dan lagu panjang"</string>
+    <string name="skip_back_seconds">"Mundur %1$d Detik"</string>
+    <string name="skip_forward_seconds">"Maju %1$d Detik"</string>
+</resources>

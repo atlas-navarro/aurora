@@ -85,8 +85,11 @@ data class PlayerUiState(
     val commentsEnabled: Boolean = true,
     val comments: List<com.aurora.music.model.TrackComment> = emptyList(),
     val supportsMusicVideo: Boolean = true,
+    val longFormSkipButtons: Boolean = true,
 ) {
     val durationSec: Int get() = if (isLive) 0 else timelineDurationSec.takeIf { it > 0 } ?: current.durationSec
+    val skipButtons: Boolean get() = longFormSkipButtons && !isMix && !isLive &&
+        com.aurora.music.data.LongForm.applies(current.id, maxOf(current.durationSec, durationSec))
     fun progressAt(positionSec: Float): Float = if (durationSec == 0) 0f else (positionSec / durationSec).coerceIn(0f, 1f)
     val isCurrentLiked: Boolean get() = likedIds.contains(current.id)
     val hasTrack: Boolean get() = current.id.isNotEmpty()
@@ -285,6 +288,7 @@ class PlayerViewModel(app: Application) : AndroidViewModel(app) {
         viewModelScope.launch {
             container.settingsStore.playbackPrefs.collect { p ->
                 autoplayEnabled = p.autoplayRadio
+                _state.update { it.copy(longFormSkipButtons = p.longFormSkipButtons) }
                 if (_state.value.speed == 1.0f && p.defaultSpeed != 1.0f && _state.value.current.id.isEmpty()) {
                     _state.update { it.copy(speed = p.defaultSpeed) }
                 }

@@ -81,6 +81,7 @@ data class PlayerDependencies(
     val sonic: com.aurora.music.data.SonicEngine? = null,
     val listeningLevels: com.aurora.music.data.listening.ListeningLevelStore? = null,
     val companion: com.aurora.music.desktop.video.CompanionVideo? = null,
+    val resumePoints: com.aurora.music.data.ResumePoints? = null,
 )
 
 fun DesktopContainer.playerDependencies(): PlayerDependencies = PlayerDependencies(
@@ -107,6 +108,7 @@ fun DesktopContainer.playerDependencies(): PlayerDependencies = PlayerDependenci
     sonic = sonicEngine,
     listeningLevels = listeningLevels,
     companion = companionVideo,
+    resumePoints = resumePoints,
 )
 
 class DesktopPlayer(private val engine: PlaybackEngine, private val deps: PlayerDependencies) : PlayerController, AutoCloseable {
@@ -154,6 +156,11 @@ class DesktopPlayer(private val engine: PlaybackEngine, private val deps: Player
     private var lastPersistMs = 0L
 
     private var autoplayEnabled = false
+    private var playbackPrefs = com.aurora.music.data.PlaybackPrefs()
+    private var resumeId = ""
+    private var resumePositionMs = 0L
+    private var resumeDurationSec = 0
+    private var resumeSavedAt = 0L
     private var privateSession = false
     private val likes = com.aurora.music.data.Likes(scope, deps.repository, deps.settingsStore::setPlaylistLiked)
     private var lastRecordedId: String? = null
@@ -246,6 +253,8 @@ class DesktopPlayer(private val engine: PlaybackEngine, private val deps: Player
         scope.launch {
             deps.settingsStore.playbackPrefs.collect { p ->
                 details.crossfadeMs = p.crossfadeSec * 1000L
+                playbackPrefs = p
+                _state.update { it.copy(longFormSkipButtons = p.longFormSkipButtons) }
                 autoplayEnabled = p.autoplayRadio
                 if (_state.value.speed == 1.0f && p.defaultSpeed != 1.0f && _state.value.current.id.isEmpty()) {
                     _state.update { it.copy(speed = p.defaultSpeed) }
@@ -318,6 +327,32 @@ class DesktopPlayer(private val engine: PlaybackEngine, private val deps: Player
             recordIfPlayed(_state.value.positionSec)
         }
         maybePersist(s)
+        trackResume(s)
+    }
+
+    // episodes and audiobooks pick up where they were left, whichever way they come back into play
+    private fun trackResume(s: EngineState) {
+        val points = deps.resumePoints ?: return
+        val song = s.current?.song ?: return
+        val duration = maxOf(song.durationSec, (s.durationMs.coerceAtLeast(0) / 1000).toInt())
+        if (song.id != resumeId) {
+            saveResume(points)
+            resumeId = song.id
+            resumeSavedAt = uptime()
+            if (s.positionMs <= RESUME_START_MS && com.aurora.music.data.LongForm.resumes(song.id, duration, playbackPrefs))
+                points.positionSec(song.id)?.let { engine.seekTo(it * 1000L); return }
+        }
+        resumePositionMs = s.positionMs
+        resumeDurationSec = duration
+        if (!s.effectivelyPlaying || uptime() - resumeSavedAt >= RESUME_SAVE_MS) {
+            resumeSavedAt = uptime()
+            saveResume(points)
+        }
+    }
+
+    private fun saveResume(points: com.aurora.music.data.ResumePoints) {
+        if (resumeId.isNotEmpty() && com.aurora.music.data.LongForm.resumes(resumeId, resumeDurationSec, playbackPrefs))
+            points.record(resumeId, (resumePositionMs / 1000).toInt(), resumeDurationSec)
     }
 
     // the meter reads the final output after aurora's own volume, so only an exclusive stream leaves no unmeasured gain
@@ -801,6 +836,7 @@ class DesktopPlayer(private val engine: PlaybackEngine, private val deps: Player
         val last = engine.state.value
         persistQueue(last)
         deps.queueStore.flushNow()
+        deps.resumePoints?.let { saveResume(it); it.flushNow() }
         reporting.close(last, uptime())
         history.finish()
         details.finish()
@@ -811,5 +847,7 @@ class DesktopPlayer(private val engine: PlaybackEngine, private val deps: Player
 
     private companion object {
         const val SLEEP_FADE_MS = 6_000
+        const val RESUME_START_MS = 3_000L
+        const val RESUME_SAVE_MS = 15_000L
     }
 }

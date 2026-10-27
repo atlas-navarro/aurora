@@ -22,6 +22,7 @@ import com.aurora.music.data.PlaybackReportDispatcher
 import com.aurora.music.data.PlaybackSourceIdentity
 import com.aurora.music.data.PlexBackend
 import com.aurora.music.data.QueueStore
+import com.aurora.music.data.ResumePoints
 import com.aurora.music.data.ReplayGainStore
 import com.aurora.music.data.ReportingMediaBackend
 import com.aurora.music.data.ServerType
@@ -109,6 +110,7 @@ class DesktopContainer(
     // machine-local, never in the roaming profile
     val listeningDetails by lazy { com.aurora.music.data.JsonLinesDetailedListeningStore(java.io.File(paths.local, "listening_details.jsonl"), com.aurora.music.desktop.platform.HostPlatform.name.lowercase(java.util.Locale.ROOT)) }
     val queueStore = QueueStore(paths.local)
+    val resumePoints = ResumePoints(paths.local)
     val replayGainStore = ReplayGainStore(paths.roaming)
     val artistInfoStore = ArtistInfoStore(paths.roaming)
     val artistInfoClient = ArtistInfoClient()
@@ -516,6 +518,7 @@ class DesktopContainer(
     override fun close() {
         folderLibrary.close()
         queueStore.flushNow()
+        resumePoints.flushNow()
         playHistory.flushNow()
         if (imageLoaderDelegate.isInitialized()) imageLoader.shutdown()
         if (audioCacheDelegate.isInitialized()) audioCache.close()

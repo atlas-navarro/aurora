@@ -108,6 +108,9 @@ data class PlaybackPrefs(
     val preferHighRes: Boolean = false,
     val scrobble: Boolean = true,
     val autoplayRadio: Boolean = false,
+    val resumePodcasts: Boolean = true,
+    val resumeLongTracks: Boolean = true,
+    val longFormSkipButtons: Boolean = true,
     val bitPerfectUsb: Boolean = false,
     val independentOutput: Boolean = false, // keeps other apps playing
     val outputRatePolicy: com.aurora.music.playback.engine.OutputRatePolicy = com.aurora.music.playback.engine.OutputRatePolicy(),

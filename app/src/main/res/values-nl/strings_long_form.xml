@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Podcasts en luisterboeken"</string>
+    <string name="resume_podcasts">"Podcasts hervatten"</string>
+    <string name="resume_podcasts_hint">"Elke aflevering gaat verder waar je was gebleven"</string>
+    <string name="resume_long_tracks">"Lange nummers hervatten"</string>
+    <string name="resume_long_tracks_hint">"Luisterboeken en alles langer dan 20 minuten gaan verder waar je was gebleven"</string>
+    <string name="long_form_skip_buttons">"Spoelknoppen"</string>
+    <string name="long_form_skip_buttons_hint">"Toon knoppen om 10 seconden te spoelen in plaats van shuffle en herhalen bij podcasts en lange nummers"</string>
+    <string name="skip_back_seconds">"%1$d seconden terug"</string>
+    <string name="skip_forward_seconds">"%1$d seconden vooruit"</string>
+</resources>

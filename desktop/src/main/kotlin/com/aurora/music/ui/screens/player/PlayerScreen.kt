@@ -1,5 +1,6 @@
 package com.aurora.music.ui.screens.player
 
+import com.aurora.music.data.LongForm
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Animation
 import androidx.compose.material.icons.filled.VideoLibrary
@@ -65,6 +66,8 @@ import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.Repeat
 import androidx.compose.material.icons.filled.RepeatOne
+import androidx.compose.material.icons.filled.Forward10
+import androidx.compose.material.icons.filled.Replay10
 import androidx.compose.material.icons.filled.Shuffle
 import androidx.compose.material.icons.filled.SkipNext
 import androidx.compose.material.icons.filled.SkipPrevious
@@ -202,6 +205,9 @@ fun PlayerScreen(
     val song = state.current
     val ui = LocalUiPrefs.current
     val classic = ui.themeStyle == ThemeStyle.AURORA
+    val skipBy = { seconds: Int ->
+        if (state.durationSec > 0) onSeek(((state.positionSec + seconds) / state.durationSec).coerceIn(0f, 1f))
+    }
     var showLyrics by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var showCover by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf(false) }
     var pickedPane by androidx.compose.runtime.saveable.rememberSaveable { mutableStateOf<String?>(null) }
@@ -521,7 +527,11 @@ fun PlayerScreen(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-                Icon(
+                if (state.skipButtons) Icon(
+                    Icons.Filled.Replay10, appString(R.string.skip_back_seconds, LongForm.SKIP_SEC),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(44.dp).clip(CircleShape).clickable { skipBy(-LongForm.SKIP_SEC) }.pointerHoverIcon(PointerIcon.Hand).padding(8.dp),
+                ) else Icon(
                     Icons.Filled.Shuffle, appString(R.string.text_shuffle_5b772b),
                     tint = if (state.shuffle) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(44.dp).clip(CircleShape).clickable(onClick = onToggleShuffle).pointerHoverIcon(PointerIcon.Hand).padding(8.dp),
@@ -552,7 +562,11 @@ fun PlayerScreen(
                     tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.size(56.dp).clip(CircleShape).clickable(onClick = onNext).pointerHoverIcon(PointerIcon.Hand).padding(6.dp),
                 )
-                Icon(
+                if (state.skipButtons) Icon(
+                    Icons.Filled.Forward10, appString(R.string.skip_forward_seconds, LongForm.SKIP_SEC),
+                    tint = MaterialTheme.colorScheme.onSurface,
+                    modifier = Modifier.size(44.dp).clip(CircleShape).clickable { skipBy(LongForm.SKIP_SEC) }.pointerHoverIcon(PointerIcon.Hand).padding(8.dp),
+                ) else Icon(
                     imageVector = if (state.repeat == RepeatMode.ONE) Icons.Filled.RepeatOne else Icons.Filled.Repeat,
                     contentDescription = appString(R.string.text_repeat_659eba),
                     tint = if (state.repeat != RepeatMode.OFF) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,

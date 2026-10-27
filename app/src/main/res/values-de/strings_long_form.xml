@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="long_form_title">"Podcasts und Hörbücher"</string>
+    <string name="resume_podcasts">"Podcasts fortsetzen"</string>
+    <string name="resume_podcasts_hint">"Jede Folge macht dort weiter, wo du aufgehört hast"</string>
+    <string name="resume_long_tracks">"Lange Titel fortsetzen"</string>
+    <string name="resume_long_tracks_hint">"Hörbücher und alles über 20 Minuten machen dort weiter, wo du aufgehört hast"</string>
+    <string name="long_form_skip_buttons">"Sprungtasten"</string>
+    <string name="long_form_skip_buttons_hint">"Zeigt bei Podcasts und langen Titeln 10-Sekunden-Sprungtasten statt Zufall und Wiederholen"</string>
+    <string name="skip_back_seconds">"%1$d Sekunden zurück"</string>
+    <string name="skip_forward_seconds">"%1$d Sekunden vor"</string>
+</resources>
