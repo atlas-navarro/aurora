@@ -158,6 +158,7 @@ compose.desktop {
                     Duration.between(Instant.parse("2026-01-01T00:00:00Z"), Instant.now()).toMinutes() % 65_536
                 // the uninstaller wipes its whole folder, so keep it apart from the data in %LOCALAPPDATA%\Aurora
                 installationPath = "Aurora Music"
+                iconFile.set(project.file("packaging/aurora.ico"))
                 menuGroup = "Aurora"
                 upgradeUuid = "67dc3d5a-e732-4a4a-b9a6-d1126d48bca5"
                 perUserInstall = true
