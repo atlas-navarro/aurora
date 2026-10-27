@@ -861,9 +861,7 @@ fun AuroraApp() {
         com.aurora.music.ui.components.LocalStartRadio provides remember(playerVM) { { song: com.aurora.music.model.Song -> playerVM.startSonicRadio(song) { confirm(it) } } },
         com.aurora.music.ui.components.LocalCanLike provides container.repository::canLike,
         com.aurora.music.ui.components.LocalLikeMenu provides remember(playerVM) { com.aurora.music.ui.components.LikeMenu(playerVM::likeOptions, playerVM::setLikedOn) },
-        com.aurora.music.ui.components.LocalRepostMenu provides remember(container) {
-            com.aurora.music.ui.components.RepostMenu(container.repository, scope) { android.widget.Toast.makeText(context, it, android.widget.Toast.LENGTH_SHORT).show() }
-        },
+        com.aurora.music.ui.components.LocalRepostMenu provides remember(container) { com.aurora.music.ui.components.RepostMenu(container.repository, scope, ::confirm) },
     ) {
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -1625,6 +1623,9 @@ fun AuroraApp() {
                 )
             }
             }
+            // the scaffold's snackbar sits under the expanded player, so player messages need their own host above it
+            if (playerState.expanded || showQueue) SnackbarHost(snackbarHostState, Modifier.align(Alignment.BottomCenter)
+                .windowInsetsPadding(WindowInsets.navigationBars).padding(bottom = 24.dp))
 
             AnimatedVisibility(
                 visible = showVisualizer,
