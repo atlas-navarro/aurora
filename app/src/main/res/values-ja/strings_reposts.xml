@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"リポスト"</string>
+    <string name="repost_remove">"リポストを取り消す"</string>
+    <string name="repost_done">"リポストしました"</string>
+    <string name="repost_removed">"リポストを取り消しました"</string>
+    <string name="repost_failed">"リポストを変更できませんでした。もう一度お試しください。"</string>
+</resources>

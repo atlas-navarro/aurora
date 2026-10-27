@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"Posting ulang"</string>
+    <string name="repost_remove">"Hapus posting ulang"</string>
+    <string name="repost_done">"Diposting ulang"</string>
+    <string name="repost_removed">"Posting ulang dihapus"</string>
+    <string name="repost_failed">"Tidak dapat mengubah posting ulang. Coba lagi."</string>
+</resources>

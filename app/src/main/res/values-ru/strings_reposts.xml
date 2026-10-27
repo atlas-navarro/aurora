@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"Репост"</string>
+    <string name="repost_remove">"Убрать репост"</string>
+    <string name="repost_done">"Репост сделан"</string>
+    <string name="repost_removed">"Репост убран"</string>
+    <string name="repost_failed">"Не удалось изменить репост. Попробуйте ещё раз."</string>
+</resources>

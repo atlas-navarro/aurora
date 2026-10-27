@@ -160,6 +160,10 @@ interface MediaBackend {
     suspend fun comments(song: Song): List<com.aurora.music.model.TrackComment>? = null
     suspend fun postComment(song: Song, body: String, timestampMs: Long): com.aurora.music.model.TrackComment? = null
 
+    fun supportsReposts(id: String): Boolean = false
+    suspend fun isReposted(id: String): Boolean = false
+    suspend fun setReposted(id: String, reposted: Boolean): Boolean = false
+
     // a composite backend can show one library at a time; others are a single library
     val libraryViews: List<LibraryViewChoice> get() = emptyList()
     fun libraryView(view: String): MediaBackend = this

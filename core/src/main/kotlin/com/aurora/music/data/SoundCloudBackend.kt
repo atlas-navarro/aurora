@@ -342,6 +342,27 @@ class SoundCloudBackend(
         return comment(api.send("POST", "/tracks/${song.id}/comments", form = mapOf("body" to body, "timestamp" to timestampMs.toString())).asJsonObject)
     }
 
+    override fun supportsReposts(id: String) = signedIn && id.matches(Regex("[0-9]+"))
+
+    // the web player keeps the account's reposts as pages of bare track ids
+    override suspend fun isReposted(id: String): Boolean {
+        if (!supportsReposts(id)) return false
+        val seen = hashSetOf<String>()
+        var next: String? = "/me/track_reposts/ids?limit=200"
+        while (next != null) {
+            val page = api.get(next).asJsonObject
+            if (page.array("collection").any { it.isJsonPrimitive && it.asString == id }) return true
+            next = page.string("next_href").takeIf { it.isNotBlank() && seen.add(it) }
+        }
+        return false
+    }
+
+    override suspend fun setReposted(id: String, reposted: Boolean): Boolean {
+        if (!supportsReposts(id)) return false
+        api.send(if (reposted) "PUT" else "DELETE", "/me/track_reposts/$id")
+        return true
+    }
+
     /** a signed hls link, or null when soundcloud only offers a preview or an encrypted stream */
     suspend fun playbackUrl(id: String): String? {
         require(id.matches(Regex("[0-9]+")))

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"Reposten"</string>
+    <string name="repost_remove">"Repost verwijderen"</string>
+    <string name="repost_done">"Gerepost"</string>
+    <string name="repost_removed">"Repost verwijderd"</string>
+    <string name="repost_failed">"Kon deze repost niet wijzigen. Probeer het opnieuw."</string>
+</resources>

@@ -482,6 +482,14 @@ class MergedBackend(
         return borrows(soundcloudIndex, i, song) && sources[soundcloudIndex].signedIn
     }
 
+    override fun supportsReposts(id: String): Boolean = unwrap(id)?.let { (i, oid) -> sources[i].supportsReposts(oid) } ?: false
+    override suspend fun isReposted(id: String): Boolean = route(id) { src, _, oid -> src.isReposted(oid) } ?: false
+    // not routed through route(), so a bot check refusal reaches the caller
+    override suspend fun setReposted(id: String, reposted: Boolean): Boolean {
+        val (i, oid) = unwrap(id) ?: return false
+        return sources[i].setReposted(oid, reposted)
+    }
+
     override suspend fun comments(song: Song): List<com.aurora.music.model.TrackComment>? {
         val (i, oid) = unwrap(song.id) ?: return null
         val original = song.copy(id = oid)

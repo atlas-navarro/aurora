@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"إعادة النشر"</string>
+    <string name="repost_remove">"إزالة إعادة النشر"</string>
+    <string name="repost_done">"تمت إعادة النشر"</string>
+    <string name="repost_removed">"تمت إزالة إعادة النشر"</string>
+    <string name="repost_failed">"تعذّر تغيير إعادة النشر. حاول مرة أخرى."</string>
+</resources>

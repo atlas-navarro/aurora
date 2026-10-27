@@ -42,6 +42,9 @@ class GuestSourceTest {
         val song = Song("5", "Song", "artist", "", "", 1)
         assertTrue(backend.supportsComments(song))
         assertFalse(backend.canPostComments(song))
+        assertFalse(backend.supportsReposts("5"))
+        assertFalse(backend.isReposted("5"))
+        assertFalse(backend.setReposted("5", true))
         assertTrue(asked.all { it.startsWith("/mixed-selections") })
     }
 
@@ -53,6 +56,9 @@ class GuestSourceTest {
         assertFalse(merged.signedIn)
         assertTrue(merged.canPostComments(Song("0${sep}5", "Song", "artist", "", "", 1)))
         assertFalse(merged.canPostComments(Song("1${sep}5", "Song", "artist", "", "", 1)))
+        assertTrue(merged.supportsReposts("0${sep}5"))
+        assertFalse(merged.supportsReposts("1${sep}5"))
+        assertFalse(merged.supportsReposts("5"))
     }
 
     @Test fun signingInTakesTheGuestsPlace() = runBlocking {

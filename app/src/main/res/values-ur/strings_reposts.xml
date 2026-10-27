@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"دوبارہ پوسٹ کریں"</string>
+    <string name="repost_remove">"دوبارہ پوسٹ ہٹائیں"</string>
+    <string name="repost_done">"دوبارہ پوسٹ ہو گئی"</string>
+    <string name="repost_removed">"دوبارہ پوسٹ ہٹا دی گئی"</string>
+    <string name="repost_failed">"دوبارہ پوسٹ تبدیل نہیں ہو سکی۔ دوبارہ کوشش کریں۔"</string>
+</resources>

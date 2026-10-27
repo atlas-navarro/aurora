@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"转发"</string>
+    <string name="repost_remove">"取消转发"</string>
+    <string name="repost_done">"已转发"</string>
+    <string name="repost_removed">"已取消转发"</string>
+    <string name="repost_failed">"无法更改转发，请重试。"</string>
+</resources>

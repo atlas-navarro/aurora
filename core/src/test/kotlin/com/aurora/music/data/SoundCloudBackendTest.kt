@@ -117,6 +117,22 @@ class SoundCloudBackendTest {
             """POST /me/play-history {"track_urn":"soundcloud:tracks:5"}"""), api.writes.toSet())
     }
 
+    @Test fun repostsReadEveryIdPageAndUseTheWebPlayersRoutes() = runBlocking {
+        val api = Recorder { path -> when (path) {
+            "/me/track_reposts/ids?limit=200" -> """{"collection":[3,4],"next_href":"https://api-v2.soundcloud.com/me/track_reposts/ids?offset=2"}"""
+            "https://api-v2.soundcloud.com/me/track_reposts/ids?offset=2" -> """{"collection":[1234567890123],"next_href":null}"""
+            else -> error(path)
+        } }
+        val backend = SoundCloudBackend(session, api)
+        assertTrue(backend.isReposted("4"))
+        assertTrue(backend.isReposted("1234567890123"))
+        assertFalse(backend.isReposted("6"))
+        assertFalse(backend.supportsReposts("soundcloud:system-playlists:weekly:42"))
+        assertTrue(backend.setReposted("4", false))
+        assertTrue(backend.setReposted("6", true))
+        assertEquals(listOf("DELETE /me/track_reposts/4", "PUT /me/track_reposts/6"), api.writes)
+    }
+
     @Test fun playlistEditsSendTheWholeTrackListBack() = runBlocking {
         val api = Recorder { """{"id":9,"track_count":3,"tracks":[${track(1)},${stub(2)},${stub(1)}]}""" }
         val backend = SoundCloudBackend(session, api)

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"Yeniden paylaş"</string>
+    <string name="repost_remove">"Yeniden paylaşımı kaldır"</string>
+    <string name="repost_done">"Yeniden paylaşıldı"</string>
+    <string name="repost_removed">"Yeniden paylaşım kaldırıldı"</string>
+    <string name="repost_failed">"Yeniden paylaşım değiştirilemedi. Tekrar deneyin."</string>
+</resources>

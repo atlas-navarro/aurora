@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"Repostar"</string>
+    <string name="repost_remove">"Remover repost"</string>
+    <string name="repost_done">"Repostado"</string>
+    <string name="repost_removed">"Repost removido"</string>
+    <string name="repost_failed">"Não foi possível alterar este repost. Tente novamente."</string>
+</resources>

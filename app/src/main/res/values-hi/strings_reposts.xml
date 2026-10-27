@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"रीपोस्ट करें"</string>
+    <string name="repost_remove">"रीपोस्ट हटाएँ"</string>
+    <string name="repost_done">"रीपोस्ट किया गया"</string>
+    <string name="repost_removed">"रीपोस्ट हटाया गया"</string>
+    <string name="repost_failed">"रीपोस्ट बदला नहीं जा सका। फिर से कोशिश करें।"</string>
+</resources>

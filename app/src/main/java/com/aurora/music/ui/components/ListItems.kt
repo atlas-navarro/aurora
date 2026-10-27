@@ -205,6 +205,7 @@ fun SongRow(
                     onClick = { menuOpen = false; onToggleLike() },
                     leadingIcon = { Icon(if (isLiked) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder, null) },
                 )
+                RepostMenuItem(song) { menuOpen = false }
                 DropdownMenuItem(
                     text = { Text(appString(R.string.track_swipe_playlists)) },
                     onClick = { menuOpen = false; showPlaylists = true },

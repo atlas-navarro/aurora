@@ -826,6 +826,7 @@ private fun Shell(
         com.aurora.music.ui.components.LocalStartRadio provides startRadio,
         com.aurora.music.ui.components.LocalCanLike provides container.repository::canLike,
         com.aurora.music.ui.components.LocalLikeMenu provides remember(player) { com.aurora.music.ui.components.LikeMenu(player::likeOptions, player::setLikedOn) },
+        com.aurora.music.ui.components.LocalRepostMenu provides remember(container) { com.aurora.music.ui.components.RepostMenu(container.repository, scope, ::confirm) },
         com.aurora.music.ui.screens.player.LocalPlayerPanes provides
             if (exploreAvailable) PlayerPane.entries else listOf(PlayerPane.LYRICS, PlayerPane.QUEUE),
     ) {

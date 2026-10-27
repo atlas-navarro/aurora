@@ -375,6 +375,11 @@ class MusicRepository(
     fun supportsComments(song: Song): Boolean = !offline && backend?.supportsComments(song) == true
     fun canPostComments(song: Song): Boolean = !offline && backend?.canPostComments(song) == true
 
+    fun supportsReposts(id: String): Boolean = !offline && backendSongId(id)?.let { backend?.supportsReposts(it) } == true
+    suspend fun isReposted(id: String): Boolean = supportsReposts(id) && backend?.isReposted(backendSongId(id) ?: id) == true
+    suspend fun setReposted(id: String, reposted: Boolean): Boolean =
+        supportsReposts(id) && backend?.setReposted(backendSongId(id) ?: id, reposted) == true
+
     // guest sources hide likes, playlist edits and their personal library
     fun canLike(id: String): Boolean = backend?.signedIn(backendSongId(id) ?: id) != false
     fun signedIn(view: String? = null): Boolean = viewOf(view)?.signedIn != false

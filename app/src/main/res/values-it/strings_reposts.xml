@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"Ripubblica"</string>
+    <string name="repost_remove">"Rimuovi ripubblicazione"</string>
+    <string name="repost_done">"Ripubblicato"</string>
+    <string name="repost_removed">"Ripubblicazione rimossa"</string>
+    <string name="repost_failed">"Impossibile modificare la ripubblicazione. Riprova."</string>
+</resources>

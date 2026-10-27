@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="repost">"Republier"</string>
+    <string name="repost_remove">"Retirer la republication"</string>
+    <string name="repost_done">"Republié"</string>
+    <string name="repost_removed">"Republication retirée"</string>
+    <string name="repost_failed">"Impossible de modifier cette republication. Réessaie."</string>
+</resources>
