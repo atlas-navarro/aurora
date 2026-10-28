@@ -67,6 +67,7 @@ class ReverbKernel(concertCapable: Boolean = false) {
     private var duck = 0.0
     private val pa = PaDrive()
     private val crowd = CrowdNoise()
+    private val vocals = VocalBus()
     private var concert = false
     private var fade = 0.0; private var fadeTarget = 0.0
 
@@ -107,7 +108,7 @@ class ReverbKernel(concertCapable: Boolean = false) {
             bandPass(EQ_FILTER + 5, 350.0)
             bandPass(EQ_FILTER + 10, 3000.0)
             biquad(EQ_FILTER + 15, min(10_000.0, rate * 0.4), highPass = true)
-            pa.configure(rate); crowd.configure(rate); renderer?.configure(rate)
+            pa.configure(rate); crowd.configure(rate); vocals.configure(rate); renderer?.configure(rate)
             lowK = 1 - exp(-2 * PI * 300.0 / rate); highK = 1 - exp(-2 * PI * 3000.0 / rate); sideK = 1 - exp(-2 * PI * 250.0 / rate)
         }
         reset()
@@ -120,7 +121,7 @@ class ReverbKernel(concertCapable: Boolean = false) {
         for (i in 0 until LINES) { oscCos[i] = cos(i * 0.77); oscSin[i] = sin(i * 0.77) }
         send = 0.0; dry = 1.0; silentFrames = 0
         gain.fill(0.0); fade = 0.0; lowState.fill(0.0); highState.fill(0.0); sideLow = 0.0
-        squeeze.reset(); duck = 0.0; pa.reset(); crowd.reset(); renderer?.reset()
+        squeeze.reset(); duck = 0.0; pa.reset(); crowd.reset(); vocals.reset(); renderer?.reset()
         inUse?.convolver?.reset(); roomPos = 0; roomOut.fill(0.0); renderer?.taps = inUse == null
         applied = null; idle = true
     }
@@ -139,6 +140,7 @@ class ReverbKernel(concertCapable: Boolean = false) {
         previous.lowState.copyInto(lowState); previous.highState.copyInto(highState); sideLow = previous.sideLow
         decayNow = previous.decayNow; hfNow = previous.hfNow
         squeeze.copyStateFrom(previous.squeeze); duck = previous.duck; pa.copyStateFrom(previous.pa); crowd.copyStateFrom(previous.crowd)
+        vocals.copyStateFrom(previous.vocals)
         previous.renderer?.let { renderer?.copyStateFrom(it) }
     }
 
@@ -180,11 +182,14 @@ class ReverbKernel(concertCapable: Boolean = false) {
             var feedL = inL; var feedR = inR
             var paL = inL; var paR = inR
             var crowdL = 0.0; var crowdR = 0.0
+            var vocal = 0.0
             if (live) {
-                // desk compressor, then the pushed pa; the crowd is in the room but not in the pa
-                duck += ((if (concert) squeeze.next(inL, inR) else 0.0) - duck) * k
+                // the desk rides the vocal over the band, then compresses and pushes the pa; the stage spills only instruments
+                vocal = vocals.next(inL, inR)
+                val ride = vocal * VOCAL_RIDE
+                duck += ((if (concert) squeeze.next(inL + ride, inR + ride) else 0.0) - duck) * k
                 val drive = exp(duck * DB_TO_LN)
-                pa.process(inL * drive, inR * drive, gain[DRIVE], squeeze.level())
+                pa.process((inL + ride) * drive, (inR + ride) * drive, gain[DRIVE], squeeze.level())
                 paL = pa.left; paR = pa.right
                 if (gain[CROWD] > 1e-5) { crowd.next(inL, inR, gain[CROWD]); crowdL = crowd.left; crowdR = crowd.right }
                 feedL = paL + crowdL; feedR = paR + crowdR
@@ -260,7 +265,7 @@ class ReverbKernel(concertCapable: Boolean = false) {
                 y = f[10] * tl + fs[8]; fs[8] = f[11] * tl - f[13] * y + fs[9]; fs[9] = f[12] * tl - f[14] * y; tl += y * gain[BOOM]
                 y = f[10] * tr + fs[10]; fs[10] = f[11] * tr - f[13] * y + fs[11]; fs[11] = f[12] * tr - f[14] * y; tr += y * gain[BOOM]
                 val venue = renderer!!
-                venue.render(paL * send, paR * send, inL * send, inR * send)
+                venue.render(paL * send, paR * send, (inL - vocal) * send, (inR - vocal) * send)
                 var roomL: Double; var roomR: Double
                 val measuredRoom = inUse
                 if (measuredRoom == null) { roomL = venue.left + tl * gain[LATE]; roomR = venue.right + tr * gain[LATE] }
@@ -457,6 +462,8 @@ class ReverbKernel(concertCapable: Boolean = false) {
         private const val CROWD = 7
         private const val KNEE = 0.9
         private val DB_TO_LN = kotlin.math.ln(10.0) / 20
+        // +2 dB on the vocal estimate
+        private const val VOCAL_RIDE = 0.26
         private const val LATE_TRIM = 0.6
         private const val BOOM_HZ = 100.0
         private const val FADE_FLOOR = 1e-7
