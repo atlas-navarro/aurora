@@ -23,14 +23,17 @@ jobs:
       - name: Fetch libFLAC
         run: bash decent/decent-media3-decoder-flac/setup.sh
 
+      - name: Create missing files
+        run: touch compose-stability.conf
+
       - name: Build debug APK
         run: |
           bash ./gradlew --no-daemon :app:assembleDebug 2>&1 | tee /tmp/b.log
           rc=${PIPESTATUS[0]}
           if [ "$rc" -ne 0 ]; then
-            msg=$(grep -i -e "C/C++:" -e "CMake Error" -e "fatal error" -e "ninja:" -e "error:" /tmp/b.log | head -25)
-            [ -z "$msg" ] && msg=$(tail -40 /tmp/b.log)
-            echo "::error::$(printf '%s' "$msg" | sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}' | cut -c1-6000)"
+            msg=$(awk '/\* What went wrong:/,/^\* Try:/' /tmp/b.log)
+            [ -z "$msg" ] && msg=$(tail -60 /tmp/b.log)
+            echo "::error::$(printf '%s' "$msg" | sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}' | cut -c1-20000)"
             exit "$rc"
           fi
 
