@@ -26,6 +26,9 @@ jobs:
       - name: Create missing files
         run: touch compose-stability.conf
 
+      - name: Debug keystore
+        run: mkdir -p ~/.android && cp debug.keystore ~/.android/debug.keystore
+
       - name: Build debug APK
         run: |
           bash ./gradlew --no-daemon :app:assembleDebug 2>&1 | tee /tmp/b.log
