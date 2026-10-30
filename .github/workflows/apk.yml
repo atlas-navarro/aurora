@@ -2,6 +2,9 @@ name: APK
 
 on: push
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,6 +42,13 @@ jobs:
             echo "::error::$(printf '%s' "$msg" | sed 's/%/%25/g' | awk '{printf "%s%%0A", $0}' | cut -c1-20000)"
             exit "$rc"
           fi
+
+      - name: Publish APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest -y --cleanup-tag || true
+          gh release create latest app/build/outputs/apk/debug/app-debug.apk -t "Latest build" -n "Automatic build"
 
       - uses: actions/upload-artifact@v4
         with:
