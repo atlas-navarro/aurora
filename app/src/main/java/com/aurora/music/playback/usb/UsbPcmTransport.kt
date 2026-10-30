@@ -78,6 +78,14 @@ internal class UsbPcmQueue(private val transport: UsbPcmTransport, private val e
     }
     fun end() { ending = true }
     val pending: Boolean get() = outstanding.get() > 0 || writing || (ending && !finished)
+    fun detach(): Boolean {
+        running = false
+        synchronized(lock) { lock.notifyAll() }
+        thread.interrupt()
+        thread.join(2000)
+        queue.clear()
+        return !thread.isAlive
+    }
     fun close() {
         running = false
         transport.interrupt()
