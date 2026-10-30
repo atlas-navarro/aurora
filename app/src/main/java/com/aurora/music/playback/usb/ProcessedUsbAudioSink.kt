@@ -25,6 +25,7 @@ class ProcessedUsbAudioSink(
     private var current: Configuration? = null
     private var pending: Configuration? = null
     private var transport: UsbPcmTransport? = null
+    private var openFormat: Format? = null
     private var queue: UsbPcmQueue? = null
     private var playing = false
     private var inputSeen = false
@@ -56,6 +57,25 @@ class ProcessedUsbAudioSink(
 
     private fun activate() {
         val config = pending ?: return
+        val reusable = transport
+        if (reusable != null && openFormat == config.format && queue == null) {
+            current = config; pending = null
+            ending = false; queueEnded = false; inputSeen = false
+            firstTimeUs = C.TIME_UNSET; lastPositionUs = AudioSink.CURRENT_POSITION_NOT_SET
+            try {
+                val caps = reusable.capabilities(config.format)
+                val output = processor.configure(config.format, caps.rates, caps.validBits, trimNext)
+                queue = UsbPcmQueue(reusable, output.pcmEncoding,
+                    checkNotNull(UsbGraphProcessor.encoding(output.pcmEncoding)).bytesPerSample * 2)
+                    .also { if (playing) it.play() }
+                lastFailure = null
+                evidence = ProcessedUsbTelemetry(true, config.format, output, caps.validBits, caps.containerBits)
+                changed()
+                return
+            } catch (failure: Exception) {
+                lastFailure = failure.message
+            }
+        }
         closeTransport()
         current = config; pending = null
         ending = false; queueEnded = false; inputSeen = false; firstTimeUs = C.TIME_UNSET
@@ -69,6 +89,7 @@ class ProcessedUsbAudioSink(
             val output = processor.configure(config.format, caps.rates, caps.validBits, trimNext)
             opened.start(output)
             transport = opened
+            openFormat = config.format
             queue = UsbPcmQueue(opened, output.pcmEncoding, checkNotNull(UsbGraphProcessor.encoding(output.pcmEncoding)).bytesPerSample * 2)
                 .also { if (playing) it.play() }
             lastFailure = null
@@ -175,10 +196,12 @@ class ProcessedUsbAudioSink(
     }
     override fun flush() {
         val hadInput = inputSeen
-        closeTransport()
+        val next = pending ?: current
+        val reuse = transport != null && next != null && openFormat == next.format && (queue?.detach() ?: true)
+        if (reuse) queue = null else closeTransport()
         processor.flush()
         super.flush()
-        pending = pending ?: current
+        pending = next
         current = null
         inputSeen = false; ending = false; queueEnded = false
         firstTimeUs = C.TIME_UNSET; lastPositionUs = AudioSink.CURRENT_POSITION_NOT_SET
@@ -196,6 +219,7 @@ class ProcessedUsbAudioSink(
         if (worker != null) worker.close() else transport?.close()
         queue = null
         transport = null
+        openFormat = null
         evidence = evidence.copy(active = false)
     }
 }
